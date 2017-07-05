@@ -241,6 +241,9 @@
                   <Dimension value="[240, 25]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gerarGradeHorariosManualJMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

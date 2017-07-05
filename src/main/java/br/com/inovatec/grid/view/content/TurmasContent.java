@@ -51,7 +51,7 @@ public class TurmasContent extends DefaultListContent<Turma> {
     @Override
     public List<Turma> getData() {
         try {
-            return ServiceProvider.getInstance().getTurmaService().findAll();
+            return ServiceProvider.getInstance().getTurmaService().findAllByPeriodoCorrente();
         } catch (ServiceException ex) {
             this.showInternalErrorMessage(ex);
         }

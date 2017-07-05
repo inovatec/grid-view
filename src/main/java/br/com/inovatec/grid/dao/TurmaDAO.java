@@ -26,13 +26,13 @@ public class TurmaDAO extends GenericDAO<Turma> {
         return this.list("turma.findAll", null);
     }
     
-    public List<Turma> findAllByPeriodo(String periodoCorrente) throws ListEntityException {
+    public List<Turma> findAllByPeriodo(Integer periodoCorrente) throws ListEntityException {
         Map<String, Object> params = new HashMap<>();
         params.put("periodoCorrente", periodoCorrente);
         return this.list("turma.findAllByPeriodo", params);
     }
     
-    public List<Turma> findAllByDescricao(String periodoCorrente, String descricao) throws ListEntityException {
+    public List<Turma> findAllByDescricao(Integer periodoCorrente, String descricao) throws ListEntityException {
         Map<String, Object> params = new HashMap<>();
         params.put("periodoCorrente", periodoCorrente);
         params.put("descricao", "%" + descricao + "%");

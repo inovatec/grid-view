@@ -10,9 +10,7 @@ import br.com.inovatec.grid.dao.exceptions.SearchEntityException;
 import br.com.inovatec.grid.entity.DiaAula;
 import br.com.inovatec.grid.entity.Gerenciavel;
 import br.com.inovatec.grid.entity.Horario;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.persistence.Query;
 
 /**

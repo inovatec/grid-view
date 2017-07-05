@@ -34,9 +34,9 @@ public class ProfessorDAO extends GenericDAO<Professor> {
     }
     
     public List<Professor> findByDisciplina(Disciplina disciplina) throws ListEntityException {
-        Map<String, Disciplina> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
         params.put("disciplina", disciplina);
-        return this.list("professor.findByDisciplina", null);
+        return this.list("professor.findByDisciplina", params);
     }
     
 }

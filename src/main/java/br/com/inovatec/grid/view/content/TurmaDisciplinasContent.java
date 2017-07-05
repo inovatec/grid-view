@@ -28,6 +28,7 @@ import br.com.inovatec.grid.view.content.template.DefaultFormContent;
 import br.com.inovatec.grid.view.content.validation.DisciplinaTurmaFormValidation;
 import br.com.inovatec.grid.view.controller.ViewController;
 import br.com.inovatec.grid.view.layout.TurmaDisciplinasView;
+import br.com.inovatec.grid.view.session.Session;
 import br.com.inovatec.grid.view.util.MessageFactory;
 import br.com.inovatec.grid.view.values.Colors;
 import br.com.inovatec.grid.view.values.Dimens;
@@ -50,7 +51,7 @@ public class TurmaDisciplinasContent extends DefaultFormContent<DisciplinaTurma>
     private final List<DisciplinaTurma> disciplinasTurmaForRemove;
     // Visual Components
     private SelectOneMenu<Disciplina> disciplinaSelectOneMenu;
-    private NumberTextField cargaHorariaSemanalNumberTextField, cargaHorariaTotalNumberTextField;
+    private NumberTextField aulasSemanaTotalNumberTextField, cargaHorariaTotalNumberTextField;
     private DataTableEntity<DisciplinaTurma, DisciplinaTurmaDataModel> disciplinaTurmaDataTable;
     private Button addButton, saveButton, cancelButton, removeButton, editButton, horariosButton;
 
@@ -77,7 +78,7 @@ public class TurmaDisciplinasContent extends DefaultFormContent<DisciplinaTurma>
 
             // Linha 1
             this.getMain().add(LabelFactory.getInstance().getLabel(Strings.TURMA_DISCIPLINAS_DIALOG_DISCIPLINA_FIELD, this.getWidth(), 4, Dimens.WEIGHT_30));
-            this.getMain().add(LabelFactory.getInstance().getLabel(Strings.TURMA_DISCIPLINAS_DIALOG_CARGA_HORARIA_SEMANAL_FIELD, this.getWidth(), 4, Dimens.WEIGHT_30));
+            this.getMain().add(LabelFactory.getInstance().getLabel(Strings.TURMA_DISCIPLINAS_DIALOG_AULAS_SEMANA_FIELD, this.getWidth(), 4, Dimens.WEIGHT_30));
             this.getMain().add(LabelFactory.getInstance().getLabel(Strings.TURMA_DISCIPLINAS_DIALOG_CARGA_HORARIA_TOTAL_FIELD, this.getWidth(), 4, Dimens.WEIGHT_30));
             // Dimensao do painel vazio da primeira linha
             Dimension emptyPanelLineOneDimension = ComponentUtils.getLabelDimension(this.getWidth(), 4, Dimens.WEIGHT_10);
@@ -88,11 +89,13 @@ public class TurmaDisciplinasContent extends DefaultFormContent<DisciplinaTurma>
                     .getInstance()
                     .getSelectOneMenu(this.getWidth(), 4, Dimens.WEIGHT_30, disciplinas);
             this.getMain().add(this.disciplinaSelectOneMenu);
-            this.cargaHorariaSemanalNumberTextField = TextFieldFactory.getInstance().getNumberTextField(this.getWidth(), 4, Dimens.WEIGHT_30);
-            this.cargaHorariaSemanalNumberTextField.addFocusListener(new CargaHorariaSemanalFocusEventListener());
-            this.getMain().add(this.cargaHorariaSemanalNumberTextField);
+            
+            this.aulasSemanaTotalNumberTextField = TextFieldFactory.getInstance().getNumberTextField(this.getWidth(), 4, Dimens.WEIGHT_30);
+            this.getMain().add(this.aulasSemanaTotalNumberTextField);
+            
             this.cargaHorariaTotalNumberTextField = TextFieldFactory.getInstance().getNumberTextField(this.getWidth(), 4, Dimens.WEIGHT_30);
             this.getMain().add(this.cargaHorariaTotalNumberTextField);
+            
             // Dimensoes do Botao de adicionar
             Dimension buttonLineOneDimension = ComponentUtils.getFormButtonDimension(this.getWidth(), 2, Dimens.WEIGHT_10);
             this.addButton = ButtonFactory.getInstance().getAddButton(buttonLineOneDimension, Colors.COLOR_MAIN, new ButtonActionListener() {
@@ -130,11 +133,10 @@ public class TurmaDisciplinasContent extends DefaultFormContent<DisciplinaTurma>
     private void addNovaDisciplina() {
         try {
             // DisciplinaTurma do formulario
-            DisciplinaTurma disciplinaTurma = DisciplinaTurmaFormValidation.getDisciplinaTurmaByForm(
-                    this.disciplinaTurmaDataTable.getData(),
+            DisciplinaTurma disciplinaTurma = DisciplinaTurmaFormValidation.getDisciplinaTurmaByForm(this.disciplinaTurmaDataTable.getData(),
                     this.disciplinaTurmaDataTable.getData().size(),
                     this.disciplinaSelectOneMenu,
-                    this.cargaHorariaSemanalNumberTextField,
+                    this.aulasSemanaTotalNumberTextField,
                     this.cargaHorariaTotalNumberTextField
             );
             // Adicionar Gerenciavel a nova DisciplinaTurma
@@ -159,7 +161,7 @@ public class TurmaDisciplinasContent extends DefaultFormContent<DisciplinaTurma>
      */
     private void resetFields() {
         this.disciplinaSelectOneMenu.setSelectedItem(null);
-        this.cargaHorariaSemanalNumberTextField.reset();
+        this.aulasSemanaTotalNumberTextField.reset();
         this.cargaHorariaTotalNumberTextField.reset();
         this.removeButton.setEnabled(false);
         this.editButton.setEnabled(false);
@@ -249,12 +251,11 @@ public class TurmaDisciplinasContent extends DefaultFormContent<DisciplinaTurma>
 
     @Override
     public DisciplinaTurma getFilledObject() throws FormException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
     }
 
     @Override
     public void fillFieldsByObject(DisciplinaTurma object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     private class DisciplinaDataTableEntityActionListener implements DataTableEntityActionListener<DisciplinaTurma> {
@@ -276,23 +277,6 @@ public class TurmaDisciplinasContent extends DefaultFormContent<DisciplinaTurma>
             disciplinasTurmaForRemove.add(dt);
             disciplinaSelectOneMenu.addItem(dt.getDisciplina());
             return true;
-        }
-
-    }
-
-    /**
-     * Classe Listener para o evento de focus do input de carga horaria semanal
-     */
-    private class CargaHorariaSemanalFocusEventListener implements FocusListener {
-
-        @Override
-        public void focusGained(FocusEvent e) {
-            // TODO:
-        }
-
-        @Override
-        public void focusLost(FocusEvent e) {
-            // TODO:
         }
 
     }

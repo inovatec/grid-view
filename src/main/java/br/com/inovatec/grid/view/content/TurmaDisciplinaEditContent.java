@@ -22,11 +22,14 @@ import br.com.inovatec.grid.view.content.exception.FormException;
 import br.com.inovatec.grid.view.content.template.DefaultFormContent;
 import br.com.inovatec.grid.view.content.validation.DisciplinaTurmaFormValidation;
 import br.com.inovatec.grid.view.layout.TurmaDisciplinaEditView;
+import br.com.inovatec.grid.view.session.Session;
 import br.com.inovatec.grid.view.util.MessageFactory;
 import br.com.inovatec.grid.view.values.Colors;
 import br.com.inovatec.grid.view.values.Dimens;
 import br.com.inovatec.grid.view.values.Strings;
 import java.awt.Dimension;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.Arrays;
 
 /**
@@ -37,7 +40,7 @@ public class TurmaDisciplinaEditContent extends DefaultFormContent<DisciplinaTur
 
     // Visual Components
     private SelectOneMenu<Disciplina> disciplinaSelectOneMenu;
-    private NumberTextField cargaHorariaSemanalNumberTextField, cargaHorariaTotalNumberTextField;
+    private NumberTextField aulasSemanaTotalNumberTextField, cargaHorariaTotalNumberTextField;
 
     public TurmaDisciplinaEditContent(TurmaDisciplinaEditView container) {
         super(container, null, false);
@@ -69,25 +72,24 @@ public class TurmaDisciplinaEditContent extends DefaultFormContent<DisciplinaTur
         this.disciplinaSelectOneMenu.setEnabled(false);
         this.getMain().add(this.disciplinaSelectOneMenu);
         // Linha 2
-        this.getMain().add(LabelFactory.getInstance().getLabel(Strings.TURMA_DISCIPLINAS_DIALOG_CARGA_HORARIA_SEMANAL_FIELD, this.getWidth(), 1, Dimens.WEIGHT_100));
-        this.cargaHorariaSemanalNumberTextField = TextFieldFactory.getInstance().getNumberTextField(this.getWidth(), 1, Dimens.WEIGHT_100);
-        this.cargaHorariaSemanalNumberTextField.setValue(getContainer().getDisciplinaTurma().getCargaHorariaSemanal());
-        this.getMain().add(this.cargaHorariaSemanalNumberTextField);
+        this.getMain().add(LabelFactory.getInstance().getLabel(Strings.TURMA_DISCIPLINAS_DIALOG_AULAS_SEMANA_FIELD, this.getWidth(), 1, Dimens.WEIGHT_100));
+        this.aulasSemanaTotalNumberTextField = TextFieldFactory.getInstance().getNumberTextField(this.getWidth(), 1, Dimens.WEIGHT_100);
+        this.aulasSemanaTotalNumberTextField.setValue(getContainer().getDisciplinaTurma().getAulasSemanaTotal());
+        this.getMain().add(this.aulasSemanaTotalNumberTextField);
         // Linha 3
         this.getMain().add(LabelFactory.getInstance().getLabel(Strings.TURMA_DISCIPLINAS_DIALOG_CARGA_HORARIA_TOTAL_FIELD, this.getWidth(), 1, Dimens.WEIGHT_100));
         this.cargaHorariaTotalNumberTextField = TextFieldFactory.getInstance().getNumberTextField(this.getWidth(), 1, Dimens.WEIGHT_100);
-        this.cargaHorariaTotalNumberTextField.setValue(getContainer().getDisciplinaTurma().getCargaHoraria());
+        this.cargaHorariaTotalNumberTextField.setValue(getContainer().getDisciplinaTurma().getCargaHorariaTotal());
         this.getMain().add(this.cargaHorariaTotalNumberTextField);
     }
 
     @Override
     public DisciplinaTurma getFilledObject() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
     }
 
     @Override
     public void fillFieldsByObject(DisciplinaTurma object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -127,21 +129,20 @@ public class TurmaDisciplinaEditContent extends DefaultFormContent<DisciplinaTur
     public void save() {
         try {
             // DisciplinaTurma do formulario
-            DisciplinaTurma disciplinaTurma = DisciplinaTurmaFormValidation.getDisciplinaTurmaByForm(
-                    this.getContainer().getDisciplinasTurma(),
+            DisciplinaTurma disciplinaTurma = DisciplinaTurmaFormValidation.getDisciplinaTurmaByForm(this.getContainer().getDisciplinasTurma(),
                     this.getContainer().getIndex(),
                     null,
-                    this.cargaHorariaSemanalNumberTextField,
+                    this.aulasSemanaTotalNumberTextField,
                     this.cargaHorariaTotalNumberTextField
             );
             // Atualizar os dados do Horario
-            getContainer().getDisciplinaTurma().setCargaHorariaSemanal(disciplinaTurma.getCargaHorariaSemanal());
-            getContainer().getDisciplinaTurma().setCargaHoraria(disciplinaTurma.getCargaHoraria());
+            getContainer().getDisciplinaTurma().setAulasSemanaTotal(disciplinaTurma.getAulasSemanaTotal());
+            getContainer().getDisciplinaTurma().setCargaHorariaTotal(disciplinaTurma.getCargaHorariaTotal());
             // Fechar a janela
             getContainer().close();
         } catch (FormException ex) {
             MessageFactory.showErrorMessage(TurmaDisciplinaEditContent.this, ex.getMessage());
         }
     }
-
+    
 }

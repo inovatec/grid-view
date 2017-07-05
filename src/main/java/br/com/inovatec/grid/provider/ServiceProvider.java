@@ -5,6 +5,7 @@
  */
 package br.com.inovatec.grid.provider;
 
+import br.com.inovatec.grid.service.AulaService;
 import br.com.inovatec.grid.service.DiaAulaService;
 import br.com.inovatec.grid.service.DisciplinaService;
 import br.com.inovatec.grid.service.DisciplinaTurmaService;
@@ -14,6 +15,7 @@ import br.com.inovatec.grid.service.ProfessorService;
 import br.com.inovatec.grid.service.SalaService;
 import br.com.inovatec.grid.service.TurmaService;
 import br.com.inovatec.grid.service.UsuarioService;
+import br.com.inovatec.grid.service.impl.AulaServiceImpl;
 import br.com.inovatec.grid.service.impl.DiaAulaServiceImpl;
 import br.com.inovatec.grid.service.impl.DisciplinaServiceImpl;
 import br.com.inovatec.grid.service.impl.DisciplinaTurmaServiceImpl;
@@ -41,6 +43,7 @@ public class ServiceProvider {
     private final TurmaService turmaService;
     private final DisciplinaTurmaService disciplinaTurmaService;
     private final ProfessorService professorService;
+    private final AulaService aulaService;
 
     private ServiceProvider() {
         this.horarioService = new HorarioServiceImpl();
@@ -52,6 +55,7 @@ public class ServiceProvider {
         this.turmaService = new TurmaServiceImpl();
         this.disciplinaTurmaService = new DisciplinaTurmaServiceImpl();
         this.professorService = new ProfessorServiceImpl();
+        this.aulaService = new AulaServiceImpl();
     }
 
     public static ServiceProvider getInstance() {
@@ -95,6 +99,10 @@ public class ServiceProvider {
 
     public ProfessorService getProfessorService() {
         return professorService;
+    }
+
+    public AulaService getAulaService() {
+        return aulaService;
     }
     
 }

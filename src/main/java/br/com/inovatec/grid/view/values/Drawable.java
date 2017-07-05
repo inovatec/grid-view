@@ -27,6 +27,7 @@ public class Drawable {
     public static final ImageIcon BG_CREATE = getDrawable("bg_create");
     public static final ImageIcon BG_EDIT = getDrawable("bg_edit");
     public static final ImageIcon BG_DELETE = getDrawable("bg_delete");
+    public static final ImageIcon BG_CONFIRM = getDrawable("bg_confirm");
     
     /**
      * Obter drawable

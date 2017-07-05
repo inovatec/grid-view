@@ -1,5 +1,6 @@
 package br.com.inovatec.grid.entity;
 
+import br.com.inovatec.grid.view.contract.Selectable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,7 +18,7 @@ import javax.persistence.OneToOne;
     @NamedQuery(name = "turma.findAllByPeriodo", query = "SELECT t FROM Turma t WHERE t.periodoCorrente = :periodoCorrente ORDER BY t.ano"),
     @NamedQuery(name = "turma.findAllByDescricao", query = "SELECT t FROM Turma t WHERE t.periodoCorrente = :periodoCorrente AND t.descricao like :descricao ORDER BY t.ano")
 })
-public class Turma extends Gerenciavel {
+public class Turma extends Gerenciavel implements Selectable {
     
     private static final long serialVersionUID = 1L;
     
@@ -94,6 +95,11 @@ public class Turma extends Gerenciavel {
     
     public String getNome() {
         return this.ano + "º ano " + this.acronimo.toUpperCase();
+    }
+
+    @Override
+    public String getLabel() {
+        return this.getNome();
     }
     
 }

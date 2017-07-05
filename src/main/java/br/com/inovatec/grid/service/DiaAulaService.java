@@ -15,6 +15,8 @@ import java.util.List;
  */
 public interface DiaAulaService extends GenericService<DiaAula>{
     
+    public List<DiaAula> listByPeriodoCorrente() throws ServiceException;
     public List<DiaAula> listBy(Integer periodoCorrente) throws ServiceException;
+    public Integer getMaxQuantidadeAulas() throws ServiceException;
     
 }

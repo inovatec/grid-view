@@ -13,6 +13,7 @@ import br.com.inovatec.grid.view.contract.Field;
 import br.com.inovatec.grid.view.layout.template.DefaultView;
 import br.com.inovatec.grid.view.values.Colors;
 import br.com.inovatec.grid.view.values.Dimens;
+import br.com.inovatec.grid.view.values.Styles;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +51,7 @@ public abstract class DefaultFormContent<T> extends DefaultContent {
         this.main = new JPanel();
         this.main.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, Dimens.DEFAULT_PADDING, Dimens.DEFAULT_PADDING));
         this.main.setBackground(Colors.COLOR_MAIN);
-        this.main.setFont(new java.awt.Font("Tahoma", 0, 12));
+        this.main.setFont(Styles.FONT_FAMILY);
         this.main.setBorder(new EmptyBorder(Dimens.DEFAULT_MIN_PADDING, Dimens.DEFAULT_MIN_PADDING, Dimens.DEFAULT_MIN_PADDING, Dimens.DEFAULT_MIN_PADDING));
         // Adicionar as caracteristicas do Main informadas no conteudo herdeiro
         this.buildMain();

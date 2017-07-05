@@ -56,7 +56,7 @@ public class DiasAulaContent extends DefaultFormContent<List<DiaAula>> {
             this.diasAula = ServiceProvider
                     .getInstance()
                     .getDiaAulaService()
-                    .listBy(Session.getInstance().getEscola().getPeriodoCorrente());
+                    .listByPeriodoCorrente();
 
             // Labels
             Dimension labelColumnOneDimension = ComponentUtils.getLabelDimension(this.getWidth(), 2, Dimens.WEIGHT_66);

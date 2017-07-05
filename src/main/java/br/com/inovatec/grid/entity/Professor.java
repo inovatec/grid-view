@@ -148,4 +148,18 @@ public class Professor extends Gerenciavel implements Serializable {
         this.setTelefone(1, celular);
     }
 
+    /**
+     * Obter o nome reduzido do Professor
+     * 
+     * @return 
+     */
+    public String getShortNome() {
+        String[] nomeSplitered = this.nome.trim().split(" ");
+        if (nomeSplitered.length > 1) {
+            return nomeSplitered[0] + " " + nomeSplitered[1];
+        } else {
+            return nomeSplitered[0];
+        }
+    }
+
 }

@@ -7,11 +7,15 @@ package br.com.inovatec.grid.service.impl;
 
 import br.com.inovatec.grid.dao.DiaAulaDAO;
 import br.com.inovatec.grid.dao.exceptions.ListEntityException;
+import br.com.inovatec.grid.dao.exceptions.SearchEntityException;
 import br.com.inovatec.grid.entity.DiaAula;
 import br.com.inovatec.grid.provider.ServiceProvider;
 import br.com.inovatec.grid.service.DiaAulaService;
 import br.com.inovatec.grid.service.exception.ServiceException;
+import br.com.inovatec.grid.view.session.Session;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -44,6 +48,22 @@ public class DiaAulaServiceImpl extends AbstractService<DiaAula, DiaAulaDAO> imp
         try {
             return this.diaAulaDAO.findAllBy(periodoCorrente);
         } catch (ListEntityException ex) {
+            throw new ServiceException(ex);
+        }
+    }
+
+    @Override
+    public List<DiaAula> listByPeriodoCorrente() throws ServiceException {
+        //TODO: return listBy(Session.getInstance().getEscola().getPeriodoCorrente());
+        return listBy(2017);
+    }
+
+    @Override
+    public Integer getMaxQuantidadeAulas() throws ServiceException {
+        try {
+            //TODO: return this.diaAulaDAO.getMaxQuantidadeAulas(Session.getInstance().getEscola().getPeriodoCorrente());
+            return this.diaAulaDAO.getMaxQuantidadeAulas(2017);
+        } catch (SearchEntityException ex) {
             throw new ServiceException(ex);
         }
     }

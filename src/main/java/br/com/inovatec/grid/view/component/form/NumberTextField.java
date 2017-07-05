@@ -9,6 +9,7 @@ import br.com.inovatec.grid.view.contract.Field;
 import br.com.inovatec.grid.view.util.ContentUtils;
 import br.com.inovatec.grid.view.values.Colors;
 import br.com.inovatec.grid.view.values.Styles;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JTextField;
@@ -132,6 +133,10 @@ public class NumberTextField extends javax.swing.JPanel implements Field {
      */
     public void reset() {
         this.jTextField.setText(null);
+    }
+    
+    public void addFocusEventListener(FocusListener listener) {
+        this.jTextField.addFocusListener(listener);
     }
     
 }

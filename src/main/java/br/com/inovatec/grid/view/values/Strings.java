@@ -128,8 +128,8 @@ public class Strings {
     public static final String TURMA_DIALOG_DESCRICAO_FIELD = "Descrição";
     // Turma - Disciplinas
     public static final String TURMA_DISCIPLINAS_DIALOG_DISCIPLINA_FIELD = "Disciplina *";
+    public static final String TURMA_DISCIPLINAS_DIALOG_AULAS_SEMANA_FIELD = "Aulas por semana *";
     public static final String TURMA_DISCIPLINAS_DIALOG_CARGA_HORARIA_TOTAL_FIELD = "Carga Horária Total *";
-    public static final String TURMA_DISCIPLINAS_DIALOG_CARGA_HORARIA_SEMANAL_FIELD = "Carga Horária Semanal *";
     
     // Campos - Professores
     // Professor
@@ -189,9 +189,9 @@ public class Strings {
     public static final String CONFIRM_MESSAGE_REMOVE_TURMA = "Deseja mesmo remover a Turma?";
     // Messages - Turma - Disciplinas
     public static final String VALIDATION_MESSAGE_TURMA_DISCIPLINA_NOT_NULL = "Você precisa selecionar uma Disciplina!";
-    public static final String VALIDATION_MESSAGE_TURMA_DISCIPLINA_CARGA_HORARIA_SEMANAL_NOT_NULL = "A carga horária semanal não foi informada!";
-    public static final String VALIDATION_MESSAGE_TURMA_DISCIPLINA_CARGA_HORARIA_SEMANAL_NOT_CORRECT = "Carga horária semanal inválida!";
-    public static final String VALIDATION_MESSAGE_TURMA_DISCIPLINA_CARGA_HORARIA_TOTAL_NOT_NULL = "A carga horária total não foi informada!";
+    public static final String VALIDATION_MESSAGE_TURMA_DISCIPLINA_AULAS_SEMANA_NOT_NULL = "O número de aulas da Disciplina na semana não foi informado ou é igual a zero!";
+    public static final String VALIDATION_MESSAGE_TURMA_DISCIPLINA_AULAS_SEMANA_NOT_CORRECT = "Carga horária semanal inválida!";
+    public static final String VALIDATION_MESSAGE_TURMA_DISCIPLINA_CARGA_HORARIA_TOTAL_NOT_NULL = "A carga horária total não foi informada ou é igual a zero!";
     public static final String VALIDATION_MESSAGE_TURMA_DISCIPLINA_CARGA_HORARIA_TOTAL_NOT_CORRECT = "Carga horária total inválida!";
     public static final String VALIDATION_MESSAGE_TURMA_DISCIPLINA_INVALID = "Disciplina da Turma é inválida!";
     public static final String CONFIRM_MESSAGE_REMOVE_DISCIPLINA_TURMA = "Deseja mesmo remover a Disciplina dessa Turma?";
@@ -202,15 +202,23 @@ public class Strings {
     public static final String VALIDATION_MESSAGE_PROFESSOR_EMAIL_NOT_NULL = "E-mail do Professor não foi informado!";
     public static final String VALIDATION_MESSAGE_PROFESSOR_TELEFONE_CELULAR_NOT_NULL = "Informe pelo menos um telefone ou celular para contato!";
     public static final String VALIDATION_MESSAGE_PROFESSOR_ENDERECO_LOGRADOURO_NOT_NULL = "Rua do endereço do Professor não foi informada!";
-    public static final String VALIDATION_MESSAGE_PROFESSOR_ENDERECO_BAIRRO_NOT_NULL = "Bairro do endereço do Professor não foi informada!";
+    public static final String VALIDATION_MESSAGE_PROFESSOR_ENDERECO_BAIRRO_NOT_NULL = "Bairro do endereço do Professor não foi informado!";
     public static final String VALIDATION_MESSAGE_PROFESSOR_ENDERECO_CIDADE_NOT_NULL = "Cidade do endereço do Professor não foi informada!";
     public static final String VALIDATION_MESSAGE_PROFESSOR_ENDERECO_UF_NOT_NULL = "UF do endereço do Professor não foi informada!";
-    public static final String VALIDATION_MESSAGE_PROFESSOR_ENDERECO_PAIS_NOT_NULL = "País do endereço do Professor não foi informada!";
+    public static final String VALIDATION_MESSAGE_PROFESSOR_ENDERECO_PAIS_NOT_NULL = "País do endereço do Professor não foi informado!";
     public static final String CONFIRM_MESSAGE_REMOVE_PROFESSOR = "Deseja mesmo remover o Professor?";
     // Messages - Professor - Competencias
     public static final String VALIDATION_MESSAGE_COMPETENCIAS_DISCIPLINA_NOT_NULL = "Selecione uma disciplina!";
     // Confirm messages
     public static final String CONFIRM_MESSAGE_CLOSE_WINDOW = "Deseja realmente fechar?\nO conteúdo não salvo será perdido!";
+    
+    // ================ Grade de Horarios ================
+    public static final String GRADE_HORARIOS_STATUS_VAGO = "Vago";
+    public static final String GRADE_HORARIOS_PROFESSORES_COMPETENTES_TITLE = "Selecione o Professor para a Disciplina de $1";
+    // Messages
+    public static final String GRADE_HORARIOS_TURMA_SEM_DISCIPLINAS = "Não foram atribuídas disciplinas para esta turma";
+    public static final String GRADE_HORARIOS_AULA_PROFESSOR_NULL = "Sem Professor!";
+    public static final String GRADE_HORARIOS_PROFESSORES_COMPETENTES_EMPTY = "Não foram encontrados Professores para esta Disciplina!";
     
     // Generico
     public static final String ADD_BUTTON = "Adicionar";

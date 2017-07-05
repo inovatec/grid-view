@@ -12,6 +12,8 @@ import br.com.inovatec.grid.entity.Professor;
 import br.com.inovatec.grid.entity.Sala;
 import br.com.inovatec.grid.entity.Turma;
 import br.com.inovatec.grid.entity.enums.TipoSala;
+import br.com.inovatec.grid.view.GradeJFrame;
+import br.com.inovatec.grid.view.MainJFrame;
 import br.com.inovatec.grid.view.layout.EscolaView;
 import br.com.inovatec.grid.view.layout.HorariosView;
 import br.com.inovatec.grid.view.layout.template.DefaultView;

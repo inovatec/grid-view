@@ -10,6 +10,7 @@ import br.com.inovatec.grid.dao.exceptions.ListEntityException;
 import br.com.inovatec.grid.entity.Turma;
 import br.com.inovatec.grid.service.TurmaService;
 import br.com.inovatec.grid.service.exception.ServiceException;
+import br.com.inovatec.grid.view.session.Session;
 import java.util.List;
 
 /**
@@ -35,21 +36,18 @@ public class TurmaServiceImpl extends AbstractService<Turma, TurmaDAO> implement
     }    
     
     @Override
-    public List<Turma> findByPeriodo(String periodoCorrente) throws ServiceException {
+    public List<Turma> findAllBy(Integer periodoCorrente) throws ServiceException {
         try {
             return this.turmaDAO.findAllByPeriodo(periodoCorrente);
         } catch (ListEntityException ex) {
             throw new ServiceException(ex);
         }
     }
-    
+
     @Override
-    public List<Turma> findAllByDescricao(String periodoCorrente, String descricao) throws ServiceException {
-        try {
-            return this.turmaDAO.findAllByDescricao(periodoCorrente, descricao);
-        } catch (ListEntityException ex) {
-            throw new ServiceException();
-        }
+    public List<Turma> findAllByPeriodoCorrente() throws ServiceException {
+        //return findAllBy(Session.getInstance().getEscola().getPeriodoCorrente());
+        return findAllBy(2017);
     }
     
 }

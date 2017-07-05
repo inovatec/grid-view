@@ -34,7 +34,7 @@ public class Dimens {
     public static final int DEFAULT_FOOTER_HEIGHT = 70;
     
     public static final int DEFAULT_BUTTON_WIDTH = 100;
-    public static final int DEFAULT_BUTTON_HEIGHT = 30;
+    public static final int DEFAULT_BUTTON_HEIGHT = 32;
     
     public static final int DEFAULT_FONT_SIZE = 14;
     public static final int DEFAULT_FONT_SIZE_INCREASED = 18;
@@ -46,8 +46,8 @@ public class Dimens {
     
     public static final int FORM_ELEMENT_DISCOUNT = 5;
     public static final int DEFAULT_FORM_ELEMENT_WIDTH = 565;
-    public static final int DEFAULT_INPUT_HEIGHT = 37;
-    public static final int DEFAULT_CONTAINER_FORM_PANEL_HEIGHT = 37;
+    public static final int DEFAULT_INPUT_HEIGHT = 39;
+    public static final int DEFAULT_CONTAINER_FORM_PANEL_HEIGHT = 39;
     public static final int DEFAULT_LABEL_HEIGHT = 18;
     public static final int DEFAULT_CHECKBOX_HEIGHT = 20;
     public static final int DEFAULT_TEXTAREA_HEIGHT = 140;
@@ -83,7 +83,7 @@ public class Dimens {
     public static final int HORARIO_EDIT_DIALOG_HEIGHT = 255;
     // DiasAulaDialog
     public static final int DIAS_AULA_DIALOG_WIDTH = 440;
-    public static final int DIAS_AULA_DIALOG_HEIGHT = 550;
+    public static final int DIAS_AULA_DIALOG_HEIGHT = 560;
     // Disciplinas
     public static final int DISCIPLINAS_DIALOG_WIDTH = 800;
     public static final int DISCIPLINAS_DIALOG_HEIGHT = 520;
@@ -127,5 +127,11 @@ public class Dimens {
     public static final int DISCIPLINA_TURMA_DIALOG_WIDTH = 800;
     public static final int DISCIPLINA_TURMA_CONTENT_HEIGHT = 400;
     public static final int DISCIPLINA_TURMA_TABLE_HEIGHT = 200;
+    
+    // ========= GradeJFrame ============
+    public static final int TURMAS_LEFT_PANEL_WIDTH = 210;
+    public static final int AULA_BORDER_SIZE = 8;
+    // ProfessoresCompetentesJDialog
+    public static final int PROFESSORES_COMPETENTES_LINE_HEIGHT = 50;
     
 }

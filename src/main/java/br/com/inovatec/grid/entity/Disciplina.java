@@ -3,6 +3,7 @@ package br.com.inovatec.grid.entity;
 import br.com.inovatec.grid.view.contract.Selectable;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -72,6 +73,31 @@ public class Disciplina implements Entidade<Long, Disciplina>, Serializable, Sel
 
     public void setDisciplinaTurma(List<DisciplinaTurma> disciplinaTurmas) {
         this.disciplinaTurmas = disciplinaTurmas;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Disciplina other = (Disciplina) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
     }
 
     @Override

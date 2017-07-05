@@ -32,6 +32,9 @@ import java.util.logging.Logger;
  */
 public class MainJFrame extends JFrame implements FrameView {
 
+    // Instancias de Janelas
+    private GradeJFrame gradeJFrame;
+    
     private final DummyFrame dummyFrame;
     private boolean renderComponentsCondition = false;
 
@@ -265,6 +268,11 @@ public class MainJFrame extends JFrame implements FrameView {
         gerarGradeHorariosManualJMenuItem.setFont(Styles.FONT_FAMILY);
         gerarGradeHorariosManualJMenuItem.setText("Gerar Grade de Horários [Manual]");
         gerarGradeHorariosManualJMenuItem.setMinimumSize(new java.awt.Dimension(240, 25));
+        gerarGradeHorariosManualJMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gerarGradeHorariosManualJMenuItemActionPerformed(evt);
+            }
+        });
         gradeHorariosJMenu.add(gerarGradeHorariosManualJMenuItem);
 
         mainJMenuBar.add(gradeHorariosJMenu);
@@ -356,6 +364,13 @@ public class MainJFrame extends JFrame implements FrameView {
     private void salasJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salasJMenuItemActionPerformed
         ViewController.showSalasView(this);
     }//GEN-LAST:event_salasJMenuItemActionPerformed
+
+    private void gerarGradeHorariosManualJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerarGradeHorariosManualJMenuItemActionPerformed
+        if (this.gradeJFrame == null) {
+            this.gradeJFrame = new GradeJFrame(this);
+        }
+        this.gradeJFrame.display();
+    }//GEN-LAST:event_gerarGradeHorariosManualJMenuItemActionPerformed
 
     /**
      * @param args the command line arguments

@@ -25,13 +25,13 @@ public class DisciplinaTurmaFormValidation {
      *
      * @param disciplinasTurma
      * @param disciplinaSelectOneMenu
-     * @param cargaHorariaSemanalNumberTextField
+     * @param aulasSemanaTotalNumberTextField
      * @param cargaHorariaTotalNumberTextField
      * @param index
      * @return
      * @throws br.com.inovatec.grid.view.content.exception.FormException
      */
-    public static DisciplinaTurma getDisciplinaTurmaByForm(List<DisciplinaTurma> disciplinasTurma, int index, SelectOneMenu<Disciplina> disciplinaSelectOneMenu, NumberTextField cargaHorariaSemanalNumberTextField, NumberTextField cargaHorariaTotalNumberTextField) throws FormException {
+    public static DisciplinaTurma getDisciplinaTurmaByForm(List<DisciplinaTurma> disciplinasTurma, int index, SelectOneMenu<Disciplina> disciplinaSelectOneMenu, NumberTextField aulasSemanaTotalNumberTextField, NumberTextField cargaHorariaTotalNumberTextField) throws FormException {
 
         DisciplinaTurma disciplinaTurma = new DisciplinaTurma();
 
@@ -43,22 +43,14 @@ public class DisciplinaTurmaFormValidation {
             throw new FormException(Strings.VALIDATION_MESSAGE_TURMA_DISCIPLINA_NOT_NULL);
         }
 
-        if (cargaHorariaSemanalNumberTextField.getValue() > 0) {
-            if (cargaHorariaSemanalNumberTextField.getValue() < 10) {
-                disciplinaTurma.setCargaHorariaSemanal(cargaHorariaSemanalNumberTextField.getValue());
-            } else {
-                throw new FormException(Strings.VALIDATION_MESSAGE_TURMA_DISCIPLINA_CARGA_HORARIA_SEMANAL_NOT_CORRECT);
-            }
+        if (aulasSemanaTotalNumberTextField.getValue() > 0) {
+            disciplinaTurma.setAulasSemanaTotal(aulasSemanaTotalNumberTextField.getValue());
         } else {
-            throw new FormException(Strings.VALIDATION_MESSAGE_TURMA_DISCIPLINA_CARGA_HORARIA_SEMANAL_NOT_NULL);
+            throw new FormException(Strings.VALIDATION_MESSAGE_TURMA_DISCIPLINA_AULAS_SEMANA_NOT_NULL);
         }
         
         if (cargaHorariaTotalNumberTextField.getValue() > 0) {
-            if (cargaHorariaTotalNumberTextField.getValue() < 10) {
-                disciplinaTurma.setCargaHoraria(cargaHorariaTotalNumberTextField.getValue());
-            } else {
-                throw new FormException(Strings.VALIDATION_MESSAGE_TURMA_DISCIPLINA_CARGA_HORARIA_TOTAL_NOT_CORRECT);
-            }
+            disciplinaTurma.setCargaHorariaTotal(cargaHorariaTotalNumberTextField.getValue());
         } else {
             throw new FormException(Strings.VALIDATION_MESSAGE_TURMA_DISCIPLINA_CARGA_HORARIA_TOTAL_NOT_NULL);
         }

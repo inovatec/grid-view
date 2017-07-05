@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface TurmaService extends GenericService<Turma>{
     
-    public List<Turma> findByPeriodo(String periodoCorrente) throws ServiceException;
-    public List<Turma> findAllByDescricao(String periodoCorrente, String descricao) throws ServiceException;
+    public List<Turma> findAllBy(Integer peridodoCorrente) throws ServiceException;
+    public List<Turma> findAllByPeriodoCorrente() throws ServiceException;
     
 }

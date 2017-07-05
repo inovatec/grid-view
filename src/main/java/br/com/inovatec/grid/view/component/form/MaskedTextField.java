@@ -57,7 +57,10 @@ public class MaskedTextField extends javax.swing.JPanel implements Field {
 
             @Override
             public void focusLost(FocusEvent e) {
-                
+                if (getTextWithoutMask().equals("")) {
+                    jFormattedTextField.setValue(null);
+                    jFormattedTextField.setText(null);
+                }
             }
         });
     }

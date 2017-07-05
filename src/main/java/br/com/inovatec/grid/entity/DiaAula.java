@@ -35,7 +35,8 @@ import javax.persistence.UniqueConstraint;
 })
 @NamedQueries(value = {
     @NamedQuery(name = "diaAula.findAll", query = "SELECT da FROM DiaAula da"),
-    @NamedQuery(name = "diaAula.findAllByPeriodo", query = "SELECT da FROM DiaAula da WHERE da.periodo = :periodo ORDER BY da.diaDaSemana")
+    @NamedQuery(name = "diaAula.findAllByPeriodo", query = "SELECT da FROM DiaAula da WHERE da.periodo = :periodo ORDER BY da.diaDaSemana"),
+    @NamedQuery(name = "diaAula.maxAulas", query = "SELECT MAX(d.totalAulas) FROM DiaAula d WHERE d.periodo = :periodo")
 })
 public class DiaAula implements Entidade<Long, DiaAula>, Serializable, Selectable {
 

@@ -56,4 +56,6 @@ public class Colors {
     
     public static final Color COLOR_FONT_WARNING = new Color(255, 0, 0);
     
+    public static final Color COLOR_AULA_CONTAINER = new Color(250, 250, 250);
+    
 }

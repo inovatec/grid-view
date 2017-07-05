@@ -21,7 +21,7 @@ public class DisciplinaTurmaDataModel extends AbstractTableDataModel<DisciplinaT
 
     @Override
     public String[] getColumns() {
-        return new String[]{"Disciplina", "Carga Horária Semanal", "Carga Horária Total"};
+        return new String[]{"Disciplina", "Aulas por semana", "Carga Horária Total"};
     }
 
     @Override
@@ -30,9 +30,9 @@ public class DisciplinaTurmaDataModel extends AbstractTableDataModel<DisciplinaT
             case 0:
                 return this.getDados().get(linha).getDisciplina().getNome();
             case 1:
-                return this.getDados().get(linha).getCargaHorariaSemanal();
+                return this.getDados().get(linha).getAulasSemanaTotal();
             case 2:
-                return this.getDados().get(linha).getCargaHoraria();
+                return this.getDados().get(linha).getCargaHorariaTotal();
         }
         return null;
     }
