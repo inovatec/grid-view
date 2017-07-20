@@ -8,7 +8,9 @@ package br.com.inovatec.grid.service.impl;
 import br.com.inovatec.grid.dao.AulaDAO;
 import br.com.inovatec.grid.dao.exceptions.ListEntityException;
 import br.com.inovatec.grid.entity.Aula;
+import br.com.inovatec.grid.entity.DiaAula;
 import br.com.inovatec.grid.entity.Professor;
+import br.com.inovatec.grid.entity.Turma;
 import br.com.inovatec.grid.service.AulaService;
 import br.com.inovatec.grid.service.exception.ServiceException;
 import java.util.List;
@@ -34,6 +36,15 @@ public class AulaServiceImpl extends AbstractService<Aula, AulaDAO> implements A
     public List<Aula> findAll(Professor professor) throws ServiceException {
         try {
             return this.aulaDAO.findAll(professor);
+        } catch (ListEntityException ex) {
+            throw new ServiceException(ex);
+        }
+    }
+    
+    @Override
+    public List<Aula> findAll(Turma turma, DiaAula diaAula) throws ServiceException {
+        try {
+            return this.aulaDAO.findAll(turma, diaAula);
         } catch (ListEntityException ex) {
             throw new ServiceException(ex);
         }

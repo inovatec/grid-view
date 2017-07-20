@@ -5,6 +5,7 @@
  */
 package br.com.inovatec.grid.view.controller;
 
+import br.com.inovatec.grid.entity.Aula;
 import br.com.inovatec.grid.entity.Disciplina;
 import br.com.inovatec.grid.entity.DisciplinaTurma;
 import br.com.inovatec.grid.entity.Horario;
@@ -12,8 +13,6 @@ import br.com.inovatec.grid.entity.Professor;
 import br.com.inovatec.grid.entity.Sala;
 import br.com.inovatec.grid.entity.Turma;
 import br.com.inovatec.grid.entity.enums.TipoSala;
-import br.com.inovatec.grid.view.GradeJFrame;
-import br.com.inovatec.grid.view.MainJFrame;
 import br.com.inovatec.grid.view.layout.EscolaView;
 import br.com.inovatec.grid.view.layout.HorariosView;
 import br.com.inovatec.grid.view.layout.template.DefaultView;
@@ -27,13 +26,16 @@ import br.com.inovatec.grid.view.layout.DisciplinasView;
 import br.com.inovatec.grid.view.layout.HorarioEditView;
 import br.com.inovatec.grid.view.layout.LoginView;
 import br.com.inovatec.grid.view.layout.ProfessorView;
+import br.com.inovatec.grid.view.layout.ProfessoresCompetentesView;
 import br.com.inovatec.grid.view.layout.ProfessoresView;
 import br.com.inovatec.grid.view.layout.SalaView;
 import br.com.inovatec.grid.view.layout.SalasView;
+import br.com.inovatec.grid.view.layout.SobreView;
 import br.com.inovatec.grid.view.layout.TurmaDisciplinaEditView;
 import br.com.inovatec.grid.view.layout.TurmaDisciplinasView;
 import br.com.inovatec.grid.view.layout.TurmaView;
 import br.com.inovatec.grid.view.layout.TurmasView;
+import br.com.inovatec.grid.view.layout.TutorialView;
 import br.com.inovatec.grid.view.session.Session;
 import br.com.inovatec.grid.view.util.DummyFrame;
 import java.util.List;
@@ -227,6 +229,34 @@ public class ViewController {
     public static void showCompetenciasProfessorView(ProfessorView requesterView) {
         showView(new CompetenciasView(requesterView, requesterView.getProfessor()));
     }
+    
+    /**
+     * Professores Competentes
+     *
+     * @param requesterView
+     * @param aula
+     */
+    public static void showProfessoresCompetentesView(FrameView requesterView, Aula aula) {
+        showView(new ProfessoresCompetentesView(requesterView, aula));
+    }
+    
+    /**
+     * Tutorial Básico
+     *
+     * @param requesterView
+     */
+    public static void showTutorialView(FrameView requesterView) {
+        showView(new TutorialView(requesterView));
+    }    
+    
+    /**
+     * Sobre
+     *
+     * @param requesterView
+     */
+    public static void showSobreView(FrameView requesterView) {
+        showView(new SobreView(requesterView));
+    }    
 
     /**
      * Exibir Dialog

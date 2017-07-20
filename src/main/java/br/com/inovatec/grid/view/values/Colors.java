@@ -18,7 +18,7 @@ public class Colors {
     public static final Color COLOR_INDEX_BACK = new Color(16, 71, 115);
     public static final Color COLOR_MENU_BAR = new Color(10, 65, 102);
     
-    public static final Color COLOR_SPLASH_TEXT= new Color(103, 151, 183);
+    public static final Color COLOR_SPLASH_TEXT = new Color(103, 151, 183);
     
     public static final Color COLOR_WHITE = new Color(255, 255, 255);
     public static final Color COLOR_FONT = new Color(30, 30, 30);
@@ -43,6 +43,9 @@ public class Colors {
     public static final Color COLOR_BLUE_PRESS = new Color(23, 120, 185);
     public static final Color COLOR_BLUE_BORDER = new Color(18, 96, 147);
     
+    public static final Color COLOR_BLUE_THEME = new Color(72, 143, 204);
+    public static final Color COLOR_PINK_THEME = new Color(247, 187, 207);
+    
     public static final Color COLOR_RED = new Color(229, 44, 44);
     public static final Color COLOR_RED_HOVER = new Color(229, 44, 44);
     public static final Color COLOR_RED_PRESS = new Color(203, 39, 39);
@@ -56,6 +59,14 @@ public class Colors {
     
     public static final Color COLOR_FONT_WARNING = new Color(255, 0, 0);
     
-    public static final Color COLOR_AULA_CONTAINER = new Color(250, 250, 250);
+    public static final Color COLOR_AULA_CONTAINER = COLOR_WHITE;
+    
+    public static final Color COLOR_GRADE_LEFT_PANEL = COLOR_MENU_BAR;
+    public static final Color COLOR_GRADE_CENTER_PANEL = COLOR_INDEX_BACK;
+    public static final Color COLOR_GRADE_DISCIPLINA_LEFT = new Color(72, 143, 204);
+    public static final Color COLOR_GRADE_DISCIPLINA_CENTER = new Color(239, 108, 0);
+    public static final Color COLOR_GRADE_AULA = new Color(0, 200, 83);
+    
+    public static final Color COLOR_GRADE_DISCIPLINA_TURMA_AULA_PANEL = COLOR_GRADE_DISCIPLINA_LEFT;
     
 }

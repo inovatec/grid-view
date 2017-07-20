@@ -18,5 +18,6 @@ public class Styles {
     public static final Font FONT_FAMILY_SPLASH = new Font("Ubuntu", Font.PLAIN, Dimens.DEFAULT_FONT_SIZE_REDUCED);
     public static final Font FONT_FAMILY_HEADER_LAYOUT_TITLE = new Font("Ubuntu", Font.BOLD, Dimens.DEFAULT_FONT_SIZE_INCREASED);
     public static final Font FONT_FAMILY_HEADER_LAYOUT_TIP = new Font("Ubuntu Light", Font.PLAIN, Dimens.DEFAULT_FONT_SIZE);
+    public static final Font FONT_FAMILY_GRADE_WARN_TITLE = new Font("Ubuntu", Font.PLAIN, Dimens.FONT_SIZE_INCREASED);
     
 }

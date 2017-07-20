@@ -35,7 +35,13 @@ public class Icons {
     public static final ImageIcon IC_HORARIOS = getImageIcon("ic_time");
     public static final ImageIcon IC_DIAS_AULA = getImageIcon("ic_calendar");
     public static final ImageIcon IC_PROFESSOR = getImageIcon("ic_professor");
+    public static final ImageIcon IC_PROFESSOR_COMPETENTE = getImageIcon("ic_professor_competente");
+    public static final ImageIcon IC_DISCIPLINA_AULA = getImageIcon("ic_disciplina_aula");
     public static final ImageIcon IC_ADD = getImageIcon("ic_add");
+    public static final ImageIcon IC_CHECK = getImageIcon("ic_check");
+    public static final ImageIcon IC_GRID = getImageIcon("ic_grid");
+    public static final ImageIcon IC_GRID_VIEW = getImageIcon("ic_grid_view");
+    public static final ImageIcon IC_INFO = getImageIcon("ic_info");
     
     /**
      * Obter icone

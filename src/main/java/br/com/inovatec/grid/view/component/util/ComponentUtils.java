@@ -54,6 +54,10 @@ public class ComponentUtils {
         return getElementDimension(height, containerWidth, Dimens.DEFAULT_MIN_PADDING, Dimens.DEFAULT_PADDING, 1, Dimens.WEIGHT_100, FORM_ELEMENT_DISCOUNT);
     }
     
+    public static Dimension getDefaultComponentDimension(int containerWidth, int height, int lineChilds, Double weight) {
+        return getElementDimension(height, containerWidth, Dimens.DEFAULT_MIN_PADDING, Dimens.DEFAULT_PADDING, lineChilds, weight, FORM_ELEMENT_DISCOUNT);
+    }
+    
     public static Dimension getFormButtonDimension(int containerWidth, int lineChilds, Double weight) {
         return getElementDimension(Dimens.DEFAULT_FORM_BUTTON_HEIGHT, containerWidth, Dimens.DEFAULT_MIN_PADDING, Dimens.DEFAULT_PADDING, lineChilds, weight, FORM_ELEMENT_DISCOUNT);
     }

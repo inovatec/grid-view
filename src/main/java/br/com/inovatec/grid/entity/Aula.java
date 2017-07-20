@@ -15,7 +15,8 @@ import javax.persistence.SequenceGenerator;
 @Entity
 @NamedQueries(value = {
     @NamedQuery(name = "aula.findAll", query = "SELECT a FROM Aula a"),
-    @NamedQuery(name = "aula.findAllByProfessor", query = "SELECT a FROM Aula a WHERE a.professor = :professor")
+    @NamedQuery(name = "aula.findAllByProfessor", query = "SELECT a FROM Aula a WHERE a.professor = :professor"),
+    @NamedQuery(name = "aula.findAllByTurmaAndDiaAula", query = "SELECT a FROM Aula a WHERE a.disciplinaTurma.turma = :turma AND a.horario.diaAula = :diaAula")
 })
 public class Aula implements Entidade<Long, Aula>, Serializable {
 

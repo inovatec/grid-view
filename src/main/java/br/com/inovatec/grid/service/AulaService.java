@@ -6,7 +6,9 @@
 package br.com.inovatec.grid.service;
 
 import br.com.inovatec.grid.entity.Aula;
+import br.com.inovatec.grid.entity.DiaAula;
 import br.com.inovatec.grid.entity.Professor;
+import br.com.inovatec.grid.entity.Turma;
 import br.com.inovatec.grid.service.exception.ServiceException;
 import java.util.List;
 
@@ -24,5 +26,15 @@ public interface AulaService extends GenericService<Aula>{
      * @throws ServiceException 
      */
     public List<Aula> findAll(Professor professor) throws ServiceException;
+    
+    /**
+     * Obter as Aulas de uma determinada turma e dia da semana
+     * 
+     * @param turma
+     * @param diaAula
+     * @return
+     * @throws ServiceException 
+     */
+    public List<Aula> findAll(Turma turma, DiaAula diaAula) throws ServiceException;
     
 }

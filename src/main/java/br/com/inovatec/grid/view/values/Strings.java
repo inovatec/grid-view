@@ -64,8 +64,23 @@ public class Strings {
     public static final String COMPETENCIAS_DIALOG_TITLE = "Competências";
     public static final String COMPETENCIAS_CONTENT_HEADER_TIP = "Disciplinas do Professor";
     public static final String COMPETENCIAS_PROFESSOR_CONTENT_HEADER_TIP = "Disciplinas do Professor $1";
+    // Titulos - Grade de Horarios - Professores Competentes
+    public static final String PROFESSORES_COMPETENTES_DIALOG_TITLE = "Professores Habilitados de $1";
+    public static final String PROFESSORES_COMPETENTES_CONTENT_HEADER_TIP = "Horário: $1 - $2";
+    // Titulos - Grade de Horarios - Disciplinas da Turma
+    public static final String DISCIPLINAS_TURMA_DIALOG_TITLE = "Disciplinas do(a) $1";
+    public static final String DISCIPLINAS_TURMA_CONTENT_HEADER_TIP = "Horário: $1 - $2";
+    // Titulos - Grade de Horarios - Ver Grade
+    public static final String VIEW_GRADE_TITLE = "Grade de Horários Atual";
+    public static final String VIEW_GRADE_CONTENT_HEADER_TIP = "Ano Letivo $1";
     
-    public static final String DISCIPLINA_TURMA_DIALOG_TITLE = "Disciplinas da Turma";
+    // Titulos - Tutorial
+    public static final String TUTORIAL_TITLE = "Dicas";
+    public static final String TUTORIAL_CONTENT_HEADER_TIP = "Entenda melhor o sistema";
+    
+    // Titulos - Sobre
+    public static final String SOBRE_TITLE = "Sobre";
+    public static final String SOBRE_CONTENT_HEADER_TIP = "GRID versão 1.0";
     
     // Login
     public static final String LOGIN_DIALOG_TITLE = "Login";
@@ -214,11 +229,11 @@ public class Strings {
     
     // ================ Grade de Horarios ================
     public static final String GRADE_HORARIOS_STATUS_VAGO = "Vago";
-    public static final String GRADE_HORARIOS_PROFESSORES_COMPETENTES_TITLE = "Selecione o Professor para a Disciplina de $1";
     // Messages
-    public static final String GRADE_HORARIOS_TURMA_SEM_DISCIPLINAS = "Não foram atribuídas disciplinas para esta turma";
+    public static final String GRADE_HORARIOS_TURMA_SEM_DISCIPLINAS = "Não foram atribuídas disciplinas para esta turma.";
     public static final String GRADE_HORARIOS_AULA_PROFESSOR_NULL = "Sem Professor!";
-    public static final String GRADE_HORARIOS_PROFESSORES_COMPETENTES_EMPTY = "Não foram encontrados Professores para esta Disciplina!";
+    public static final String GRADE_HORARIOS_PROFESSORES_COMPETENTES_EMPTY = "Não foram encontrados Professores para esta Disciplina.";
+    public static final String GRADE_HORARIOS_SAVE_SUCCESS = "Grade de Horários salva com sucesso!";
     
     // Generico
     public static final String ADD_BUTTON = "Adicionar";

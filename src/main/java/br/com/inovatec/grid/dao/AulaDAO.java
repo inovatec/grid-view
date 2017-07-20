@@ -7,7 +7,10 @@ package br.com.inovatec.grid.dao;
 
 import br.com.inovatec.grid.dao.exceptions.ListEntityException;
 import br.com.inovatec.grid.entity.Aula;
+import static br.com.inovatec.grid.entity.Aula_.professor;
+import br.com.inovatec.grid.entity.DiaAula;
 import br.com.inovatec.grid.entity.Professor;
+import br.com.inovatec.grid.entity.Turma;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +41,21 @@ public class AulaDAO extends GenericDAO<Aula> {
         Map<String, Object> params = new HashMap<>();
         params.put("professor", professor);
         return this.list("aula.findAllByProfessor", params);
+    }
+    
+    /**
+     * Obter Aulas por Turma e DiaAula
+     * 
+     * @param turma
+     * @param diaAula
+     * @return
+     * @throws ListEntityException 
+     */
+    public List<Aula> findAll(Turma turma, DiaAula diaAula) throws ListEntityException {
+        Map<String, Object> params = new HashMap<>();
+        params.put("turma", turma);
+        params.put("diaAula", diaAula);
+        return this.list("aula.findAllByTurmaAndDiaAula", params);
     }
     
 }

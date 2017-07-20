@@ -14,6 +14,7 @@ import javax.swing.JDialog;
 import br.com.inovatec.grid.view.contract.DialogView;
 import br.com.inovatec.grid.view.contract.FrameView;
 import br.com.inovatec.grid.view.contract.View;
+import br.com.inovatec.grid.view.values.Icons;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -92,6 +93,7 @@ public abstract class DefaultView implements DialogView {
         this.dialog.setBackground(Colors.COLOR_MAIN);
         this.dialog.setForeground(Colors.COLOR_FONT);
         this.dialog.setResizable(false);
+        this.dialog.setIconImages(Icons.getAppIcons());
         // Dimensoes da janela
         this.dialog.setPreferredSize(new Dimension(this.width, this.height));
         // Adicionar Listener responsavel por eventos ao fechar a pagina
@@ -157,7 +159,7 @@ public abstract class DefaultView implements DialogView {
     @Override
     public void close() {
         this.dialog.dispose();
-        this.dialog.setVisible(false);
+        
     }
     
 }

@@ -19,6 +19,7 @@ public class Dimens {
     public static final double WEIGHT_33 = 33.333;
     public static final double WEIGHT_30 = 30.0;
     public static final double WEIGHT_25 = 25.0;
+    public static final double WEIGHT_20 = 20.0;
     public static final double WEIGHT_10 = 10.0;
     
     public static final int PLUS_30 = 30;
@@ -39,6 +40,7 @@ public class Dimens {
     public static final int DEFAULT_FONT_SIZE = 14;
     public static final int DEFAULT_FONT_SIZE_INCREASED = 18;
     public static final int DEFAULT_FONT_SIZE_REDUCED = 12;
+    public static final int FONT_SIZE_INCREASED = 64;
     
     public static final int DEFAULT_PADDING = 10;
     public static final int DEFAULT_MIN_PADDING = 5;
@@ -52,6 +54,7 @@ public class Dimens {
     public static final int DEFAULT_CHECKBOX_HEIGHT = 20;
     public static final int DEFAULT_TEXTAREA_HEIGHT = 140;
     public static final int DEFAULT_SELECTONEMENU_HEIGHT = DEFAULT_INPUT_HEIGHT;
+    public static final int DEFAULT_MULTILINE_HEIGHT = 200;
     
     public static final int DEFAULT_FORM_BUTTON_HEIGHT = 37;
     
@@ -80,7 +83,7 @@ public class Dimens {
     public static final int HORARIOS_DIALOG_HEIGHT = 600;
     public static final int HORARIOS_TABLE_HEIGHT = 335;
     public static final int HORARIO_EDIT_DIALOG_WIDTH = 300;
-    public static final int HORARIO_EDIT_DIALOG_HEIGHT = 255;
+    public static final int HORARIO_EDIT_DIALOG_HEIGHT = 260;
     // DiasAulaDialog
     public static final int DIAS_AULA_DIALOG_WIDTH = 440;
     public static final int DIAS_AULA_DIALOG_HEIGHT = 560;
@@ -132,6 +135,20 @@ public class Dimens {
     public static final int TURMAS_LEFT_PANEL_WIDTH = 210;
     public static final int AULA_BORDER_SIZE = 8;
     // ProfessoresCompetentesJDialog
-    public static final int PROFESSORES_COMPETENTES_LINE_HEIGHT = 50;
+    public static final int PROFESSORES_COMPETENTES_DIALOG_WIDTH = 620;
+    public static final int PROFESSORES_COMPETENTES_DIALOG_HEIGHT = 532;
+    public static final int PROFESSORES_COMPETENTES_ITEM_HEIGHT = 164;
+    // DisciplinasTurmaJDialog
+    public static final int DISCIPLINAS_TURMA_DIALOG_WIDTH = 800;
+    public static final int DISCIPLINAS_TURMA_DIALOG_HEIGHT = 600;
+    public static final int DISCIPLINAS_TURMA_AULA_ITEM_HEIGHT = 140;
+    
+    // Tutorial
+    public static final int TUTORIAL_DIALOG_WIDTH = 780;
+    public static final int TUTORIAL_DIALOG_HEIGHT = 500;
+    
+    // Sobre
+    public static final int SOBRE_DIALOG_WIDTH = 512;
+    public static final int SOBRE_DIALOG_HEIGHT = 320;
     
 }

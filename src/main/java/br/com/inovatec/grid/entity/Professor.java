@@ -153,10 +153,10 @@ public class Professor extends Gerenciavel implements Serializable {
      * 
      * @return 
      */
-    public String getShortNome() {
+    public String getNomeReduzido() {
         String[] nomeSplitered = this.nome.trim().split(" ");
         if (nomeSplitered.length > 1) {
-            return nomeSplitered[0] + " " + nomeSplitered[1];
+            return nomeSplitered[0] + " " + nomeSplitered[nomeSplitered.length - 1];
         } else {
             return nomeSplitered[0];
         }

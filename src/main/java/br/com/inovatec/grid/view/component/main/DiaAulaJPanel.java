@@ -10,11 +10,12 @@ import br.com.inovatec.grid.entity.DiaAula;
 import br.com.inovatec.grid.entity.Horario;
 import br.com.inovatec.grid.view.values.Colors;
 import br.com.inovatec.grid.view.values.Styles;
+import java.awt.Component;
 import java.awt.event.MouseListener;
 import java.time.format.TextStyle;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -25,12 +26,12 @@ import javax.swing.JPanel;
 public class DiaAulaJPanel extends JPanel {
     
     private final DiaAula diaAula;
-    private final List<Aula> aulas;
+    private final List<Aula> aulasPreenchidas;
     private final JPanel aulasContainerJPanel;
 
-    public DiaAulaJPanel(Integer totalAulas, DiaAula diaAula, List<Aula> aulas, List<Horario> horarios, MouseListener ml) {
+    public DiaAulaJPanel(Integer totalAulas, DiaAula diaAula, List<Aula> aulasPreenchidas, List<Horario> horarios, MouseListener ml) {
         this.diaAula = diaAula;
-        this.aulas = aulas;
+        this.aulasPreenchidas = aulasPreenchidas;
         this.aulasContainerJPanel = new javax.swing.JPanel();
         
         setBackground(null);
@@ -53,14 +54,8 @@ public class DiaAulaJPanel extends JPanel {
         
         // Iterar pela lista de Aulas
         horarios.forEach(h -> {
-            // Aula da iteracao
-            Aula aula = null;
-            // Obter as aulas que tem o horario da iteracao. Idealmente, deve haver apenas uma aula com esses criterios
-            List<Aula> aulasResultList = aulas.stream().filter(x -> x.getHorario().equals(h)).collect(Collectors.toList());
-            // Verificar se ha resultado
-            if (aulasResultList.size() > 0) {
-                aula = aulasResultList.get(0);
-            }
+            // Obter a aula que tem o horario da iteracao. Idealmente, deve haver apenas uma aula com esses criterios
+            Aula aula = aulasPreenchidas.stream().filter(x -> x.getHorario().equals(h)).findAny().orElse(null);
             // Criar painel com as informacoes obtidas
             AulaJPanel aulaJPanel = new AulaJPanel(aula, h);
             aulaJPanel.addMouseListener(ml);
@@ -79,7 +74,21 @@ public class DiaAulaJPanel extends JPanel {
         return diaAula;
     }
 
+    public List<Aula> getAulasPreenchidas() {
+        return aulasPreenchidas;
+    }
+    
+    /**
+     * Obter as aulas preenchidas
+     * @return 
+     */
     public List<Aula> getAulas() {
+        final List<Aula> aulas = new ArrayList<>();
+        for (Component c : this.aulasContainerJPanel.getComponents()) {
+            if (c instanceof AulaJPanel) {
+                aulas.add(((AulaJPanel) c).getAula());
+            }
+        }
         return aulas;
     }
     

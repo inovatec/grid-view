@@ -6,6 +6,7 @@
 package br.com.inovatec.grid.view.component.main;
 
 import br.com.inovatec.grid.entity.DisciplinaTurma;
+import br.com.inovatec.grid.util.object.DisciplinaTurmaAulas;
 import br.com.inovatec.grid.view.values.Colors;
 import br.com.inovatec.grid.view.values.Dimens;
 import br.com.inovatec.grid.view.values.Styles;
@@ -17,12 +18,11 @@ import javax.swing.border.EmptyBorder;
  */
 public class DisciplinaJLabel extends javax.swing.JLabel {
 
-    private final DisciplinaTurma disciplinaTurma;
-    private int qtde;
+    private final DisciplinaTurmaAulas disciplinaTurmaAulas;
 
     public DisciplinaJLabel(DisciplinaTurma disciplinaTurma) {
         super();
-        this.disciplinaTurma = disciplinaTurma;
+        this.disciplinaTurmaAulas = new DisciplinaTurmaAulas(disciplinaTurma, disciplinaTurma.getAulasSemanaTotal() - disciplinaTurma.getAulas().size());
         config();
     }
 
@@ -34,7 +34,7 @@ public class DisciplinaJLabel extends javax.swing.JLabel {
         setFont(Styles.FONT_FAMILY_BOLD);
         setForeground(Colors.COLOR_WHITE);
         setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        setBackground(Colors.COLOR_GREEN);
+        setBackground(Colors.COLOR_GRADE_DISCIPLINA_LEFT);
         setBorder(new EmptyBorder(
                 Dimens.DEFAULT_PADDING,
                 Dimens.DEFAULT_PADDING,
@@ -42,17 +42,19 @@ public class DisciplinaJLabel extends javax.swing.JLabel {
                 Dimens.DEFAULT_PADDING)
         );
         setOpaque(true);
-        // Quantidade da Disciplina na semana
-        this.qtde = this.disciplinaTurma.getAulasSemanaTotal() - this.disciplinaTurma.getAulas().size();
         // Modificar o texto
         setText();
+        // Modificar a cor
+        if (this.disciplinaTurmaAulas.getTotalAulas() == 0) {
+            setBackground(Colors.COLOR_GREY);
+        }
     }
     
     /**
      * Modificar o texto do label
      */
     private void setText() {
-        setText(this.disciplinaTurma.getDisciplina().getNome() + "(" + this.qtde + ")");
+        setText(this.disciplinaTurmaAulas.getDisciplinaTurma().getDisciplina().getNome() + "(" + this.disciplinaTurmaAulas.getTotalAulas() + ")");
     }
 
     /**
@@ -60,33 +62,24 @@ public class DisciplinaJLabel extends javax.swing.JLabel {
      */
     public void increment() {
         // Verificar se ja eh igual a zero
-        ++this.qtde;
+        this.disciplinaTurmaAulas.incrementTotalAulas();
         setText();
-        setBackground(Colors.COLOR_GREEN);
+        setBackground(Colors.COLOR_GRADE_DISCIPLINA_LEFT);
     }
     
     /**
      * Decrementar a quantidade da disciplina e atualizar o componente
      */
     public void decrement() {
-        // Verificar se ja eh igual a zero
-        if (this.qtde > 0) {
-            --this.qtde;
-        }
-        
+        this.disciplinaTurmaAulas.decrementTotalAulas();
         setText();
-        
-        if (this.qtde == 0) {
+        if (this.disciplinaTurmaAulas.getTotalAulas() == 0) {
             setBackground(Colors.COLOR_GREY);
         }
     }
 
-    public DisciplinaTurma getDisciplinaTurma() {
-        return disciplinaTurma;
-    }
-
-    public int getQtde() {
-        return qtde;
+    public DisciplinaTurmaAulas getDisciplinaTurmaAulas() {
+        return disciplinaTurmaAulas;
     }
 
     /**
@@ -95,7 +88,7 @@ public class DisciplinaJLabel extends javax.swing.JLabel {
      * @return 
      */
     public boolean isReleased() {
-        return this.qtde > 0;
+        return this.disciplinaTurmaAulas.getTotalAulas() > 0;
     }
     
 }

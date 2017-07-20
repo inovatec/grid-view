@@ -33,6 +33,7 @@ import java.util.logging.Logger;
 public class MainJFrame extends JFrame implements FrameView {
 
     // Instancias de Janelas
+    private ViewGradeJFrame viewGradeJFrame;
     private GradeJFrame gradeJFrame;
     
     private final DummyFrame dummyFrame;
@@ -44,6 +45,22 @@ public class MainJFrame extends JFrame implements FrameView {
     public MainJFrame() {
         // Frame escondido
         this.dummyFrame = new DummyFrame("Grid", this);
+    }
+
+    public GradeJFrame getGradeJFrame() {
+        return gradeJFrame;
+    }
+
+    public void setGradeJFrame(GradeJFrame gradeJFrame) {
+        this.gradeJFrame = gradeJFrame;
+    }
+
+    public ViewGradeJFrame getViewGradeJFrame() {
+        return viewGradeJFrame;
+    }
+
+    public void setViewGradeJFrame(ViewGradeJFrame viewGradeJFrame) {
+        this.viewGradeJFrame = viewGradeJFrame;
     }
 
     /**
@@ -254,17 +271,25 @@ public class MainJFrame extends JFrame implements FrameView {
         gradeHorariosJMenu.setText("Grade de Horários");
         gradeHorariosJMenu.setFont(Styles.FONT_FAMILY);
 
+        gradeHorariosJMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
         gradeHorariosJMenuItem.setFont(Styles.FONT_FAMILY);
         gradeHorariosJMenuItem.setText("Grade de Horários Atual");
         gradeHorariosJMenuItem.setMinimumSize(new java.awt.Dimension(240, 25));
+        gradeHorariosJMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gradeHorariosJMenuItemActionPerformed(evt);
+            }
+        });
         gradeHorariosJMenu.add(gradeHorariosJMenuItem);
         gradeHorariosJMenu.add(jSeparator4);
 
         gerarGradeHorariosAutoJMenuItem.setFont(Styles.FONT_FAMILY);
         gerarGradeHorariosAutoJMenuItem.setText("Gerar Grade de Horários [Auto]");
+        gerarGradeHorariosAutoJMenuItem.setEnabled(false);
         gerarGradeHorariosAutoJMenuItem.setMinimumSize(new java.awt.Dimension(240, 25));
         gradeHorariosJMenu.add(gerarGradeHorariosAutoJMenuItem);
 
+        gerarGradeHorariosManualJMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
         gerarGradeHorariosManualJMenuItem.setFont(Styles.FONT_FAMILY);
         gerarGradeHorariosManualJMenuItem.setText("Gerar Grade de Horários [Manual]");
         gerarGradeHorariosManualJMenuItem.setMinimumSize(new java.awt.Dimension(240, 25));
@@ -315,17 +340,29 @@ public class MainJFrame extends JFrame implements FrameView {
         ajudaJMenu.setText("Ajuda");
         ajudaJMenu.setFont(Styles.FONT_FAMILY);
 
+        dicasJMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         dicasJMenuItem.setFont(Styles.FONT_FAMILY);
         dicasJMenuItem.setText("Dicas");
         dicasJMenuItem.setMinimumSize(new java.awt.Dimension(240, 25));
         dicasJMenuItem.setPreferredSize(new java.awt.Dimension(240, 25));
+        dicasJMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dicasJMenuItemActionPerformed(evt);
+            }
+        });
         ajudaJMenu.add(dicasJMenuItem);
         ajudaJMenu.add(jSeparator5);
 
+        sobreJMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, java.awt.event.InputEvent.CTRL_MASK));
         sobreJMenuItem.setFont(Styles.FONT_FAMILY);
         sobreJMenuItem.setText("Sobre");
         sobreJMenuItem.setMinimumSize(new java.awt.Dimension(240, 25));
         sobreJMenuItem.setPreferredSize(new java.awt.Dimension(240, 25));
+        sobreJMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sobreJMenuItemActionPerformed(evt);
+            }
+        });
         ajudaJMenu.add(sobreJMenuItem);
 
         mainJMenuBar.add(ajudaJMenu);
@@ -369,8 +406,29 @@ public class MainJFrame extends JFrame implements FrameView {
         if (this.gradeJFrame == null) {
             this.gradeJFrame = new GradeJFrame(this);
         }
+        // Desabilitar a janela
+        this.setEnabled(false);
+        // Mostrar a janela de grade
         this.gradeJFrame.display();
     }//GEN-LAST:event_gerarGradeHorariosManualJMenuItemActionPerformed
+
+    private void gradeHorariosJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradeHorariosJMenuItemActionPerformed
+        if (this.viewGradeJFrame == null) {
+            this.viewGradeJFrame = new ViewGradeJFrame(this);
+        }
+        // Desabilitar a janela
+        this.setEnabled(false);
+        // Mostrar a janela de grade
+        this.viewGradeJFrame.display();
+    }//GEN-LAST:event_gradeHorariosJMenuItemActionPerformed
+
+    private void dicasJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dicasJMenuItemActionPerformed
+        ViewController.showTutorialView(this);
+    }//GEN-LAST:event_dicasJMenuItemActionPerformed
+
+    private void sobreJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sobreJMenuItemActionPerformed
+        ViewController.showSobreView(this);
+    }//GEN-LAST:event_sobreJMenuItemActionPerformed
 
     /**
      * @param args the command line arguments

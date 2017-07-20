@@ -6,15 +6,12 @@
 package br.com.inovatec.grid.view.component.main;
 
 import br.com.inovatec.grid.entity.Aula;
-import br.com.inovatec.grid.entity.DisciplinaTurma;
 import br.com.inovatec.grid.entity.Horario;
-import br.com.inovatec.grid.entity.Professor;
 import br.com.inovatec.grid.util.DateTimeUtils;
 import br.com.inovatec.grid.view.values.Colors;
 import br.com.inovatec.grid.view.values.Dimens;
 import br.com.inovatec.grid.view.values.Strings;
 import br.com.inovatec.grid.view.values.Styles;
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
@@ -26,19 +23,23 @@ import javax.swing.border.LineBorder;
  */
 public class AulaJPanel extends javax.swing.JPanel {
 
-    private Horario horario;
     private Aula aula;
     private final JLabel horarioJLabel, statusJLabel, disciplinaJLabel, professorJLabel;
 
     /**
      * Creates new form AulaJPanel
+     *
      * @param aula
      * @param horario
      */
     public AulaJPanel(Aula aula, Horario horario) {
         // Inicializar variaveis
-        this.aula = aula != null ? aula : new Aula();
-        this.horario = horario;
+        if (aula == null) {
+            this.aula = new Aula();
+            this.aula.setHorario(horario);
+        } else {
+            this.aula = aula;
+        }
         // Incializar componentes
         initComponents();
         // Inicializar variaveis
@@ -48,6 +49,8 @@ public class AulaJPanel extends javax.swing.JPanel {
         this.professorJLabel = new JLabel();
         // Inicializar componente
         this.init();
+        // Desenhar componentes
+        this.draw();
     }
 
     public Aula getAula() {
@@ -56,14 +59,6 @@ public class AulaJPanel extends javax.swing.JPanel {
 
     public void setAula(Aula aula) {
         this.aula = aula;
-    }
-
-    public Horario getHorario() {
-        return horario;
-    }
-
-    public void setHorario(Horario horario) {
-        this.horario = horario;
     }
 
     private void init() {
@@ -91,38 +86,28 @@ public class AulaJPanel extends javax.swing.JPanel {
         this.professorJLabel.setFont(Styles.FONT_FAMILY);
         this.professorJLabel.setForeground(Colors.COLOR_FONT);
         this.professorJLabel.setBorder(border);
-        
-        // Adicionar horario
-        addHorario(this.horario);
-        
-        // Verificar se tem disciplina alocada
-        if (this.aula.getDisciplinaTurma() != null) {
-            addDisciplinaTurma(this.aula.getDisciplinaTurma());
-        } else {
-            addStatusVago();
-        }
     }
 
     /**
      * Adicionar horas de inicio e de fim da aula ao Horario
      *
-     * @param horario
      */
-    public void addHorario(Horario horario) {
-        this.aula.setHorario(horario);
-        this.horarioJLabel.setText(
-                DateTimeUtils.getMinimalFormattedTime(horario.getInicio())
-                + " - "
-                + DateTimeUtils.getMinimalFormattedTime(horario.getFim())
-        );
-        add(this.horarioJLabel, new java.awt.GridBagConstraints());
+    public void showHorario() {
+        if (this.aula.getHorario() != null) {
+            this.horarioJLabel.setText(
+                    DateTimeUtils.getMinimalFormattedTime(this.aula.getHorario().getInicio())
+                    + " - "
+                    + DateTimeUtils.getMinimalFormattedTime(this.aula.getHorario().getFim())
+            );
+            this.add(this.horarioJLabel, new java.awt.GridBagConstraints());
+        }
     }
 
     /**
      * Adicionar informacao do Status do Horario
      *
      */
-    public void addStatusVago() {
+    public void showStatusVago() {
         // Remover labels nao usados
         this.remove(this.disciplinaJLabel);
         this.remove(this.professorJLabel);
@@ -136,33 +121,39 @@ public class AulaJPanel extends javax.swing.JPanel {
     /**
      * Adicionar informacao da Disciplina ao Horario
      *
-     * @param disciplinaTurma
      */
-    public void addDisciplinaTurma(DisciplinaTurma disciplinaTurma) {
-        // Adicionar DisciplinaTurma a Aula
-        this.aula.setDisciplinaTurma(disciplinaTurma);
-        // Remover labels nao usados
-        this.remove(this.statusJLabel);
-
-        this.disciplinaJLabel.setText(disciplinaTurma.getDisciplina().getNome());
-        GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        this.add(this.disciplinaJLabel, gridBagConstraints);
-        
-        this.addProfessor(this.aula.getProfessor());
+    public void showDisciplinaTurma() {
+        if (this.aula.getDisciplinaTurma() != null) {
+            // Remover labels nao usados
+            this.remove(this.statusJLabel);
+            // Modificar cor do label
+            setBackground(Colors.COLOR_GRADE_DISCIPLINA_CENTER);
+            // Modificar cor da fonte
+            this.horarioJLabel.setForeground(Colors.COLOR_WHITE);
+            this.professorJLabel.setForeground(Colors.COLOR_WHITE);
+            this.disciplinaJLabel.setForeground(Colors.COLOR_WHITE);
+            // Mostrar Disciplina
+            this.disciplinaJLabel.setText(this.aula.getDisciplinaTurma().getDisciplina().getNome());
+            GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
+            gridBagConstraints.gridx = 0;
+            gridBagConstraints.gridy = 1;
+            this.add(this.disciplinaJLabel, gridBagConstraints);
+        }
     }
 
     /**
-     * Adicionar informacao do Professor ao Horario
+     * Adicionar informacao do Professor a Exibição
      *
-     * @param professor
      */
-    public void addProfessor(Professor professor) {
-        // Adicionar DisciplinaTurma a Aula
-        this.aula.setProfessor(professor);
-        // Modificar labels
-        this.professorJLabel.setText(professor != null ? professor.getShortNome() : Strings.GRADE_HORARIOS_AULA_PROFESSOR_NULL);
+    public void showProfessor() {
+        if (this.aula.getProfessor() != null) {
+            // Modificar labels
+            this.professorJLabel.setText(this.aula.getProfessor().getNomeReduzido());
+            // Modificar cor do label
+            setBackground(Colors.COLOR_GRADE_AULA);
+        } else {
+            this.professorJLabel.setText(Strings.GRADE_HORARIOS_AULA_PROFESSOR_NULL);
+        }
         GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -173,43 +164,28 @@ public class AulaJPanel extends javax.swing.JPanel {
      * Atualizar o componente
      *
      */
-    public void update() {
+    public void draw() {
         reset();
-        
-        this.horarioJLabel.setForeground(Colors.COLOR_WHITE);
-        this.professorJLabel.setForeground(Colors.COLOR_WHITE);
-        this.disciplinaJLabel.setForeground(Colors.COLOR_WHITE);
-        
-        if (this.aula.getProfessor() != null) {
-            setBackground(Colors.COLOR_GREEN);
-        } else if (this.aula.getDisciplinaTurma() != null) {
-            setBackground(Colors.COLOR_ORANGE);
-        }
-        
+
+        showHorario();
+        showStatusVago();
+        showDisciplinaTurma();
+        showProfessor();
     }
-    
+
     /**
      * Modificar as propriedades do painel
      *
      */
     public void change() {
-        setBorder(new LineBorder(Colors.COLOR_GREEN, Dimens.AULA_BORDER_SIZE));
+        setBorder(new LineBorder(Colors.COLOR_GRADE_DISCIPLINA_LEFT, Dimens.AULA_BORDER_SIZE));
     }
-    
+
     /**
      * Resetar para os valores padrao do componente
      */
     public void reset() {
         setBorder(new EmptyBorder(Dimens.AULA_BORDER_SIZE, Dimens.AULA_BORDER_SIZE, Dimens.AULA_BORDER_SIZE, Dimens.AULA_BORDER_SIZE));
-    }
-    
-    /**
-     * Verifica se o componente esta liberado para adicionar DisciplinaTurma
-     * 
-     * @return 
-     */
-    public boolean canAddDisciplinaTurma() {
-        return this.aula != null && this.aula.getDisciplinaTurma() == null;
     }
 
     /**
