@@ -28,6 +28,11 @@ public class DiaAulaDAO extends GenericDAO<DiaAula> {
     public List<DiaAula> findAll() throws ListEntityException {
         return this.list("diaAula.findAll", null);
     }    
+    
+    @Override
+    public String getGenericQuery() {
+        return "select da from DiaAula da where $1";
+    }
 
     public List<DiaAula> findAllBy(Integer periodo) throws ListEntityException {
         Map<String, Object> params = new HashMap<>();

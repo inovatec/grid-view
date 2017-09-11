@@ -28,15 +28,12 @@ import br.com.inovatec.grid.view.content.template.DefaultFormContent;
 import br.com.inovatec.grid.view.content.validation.DisciplinaTurmaFormValidation;
 import br.com.inovatec.grid.view.controller.ViewController;
 import br.com.inovatec.grid.view.layout.TurmaDisciplinasView;
-import br.com.inovatec.grid.view.session.Session;
 import br.com.inovatec.grid.view.util.MessageFactory;
 import br.com.inovatec.grid.view.values.Colors;
 import br.com.inovatec.grid.view.values.Dimens;
 import br.com.inovatec.grid.view.values.Icons;
 import br.com.inovatec.grid.view.values.Strings;
 import java.awt.Dimension;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -118,7 +115,8 @@ public class TurmaDisciplinasContent extends DefaultFormContent<DisciplinaTurma>
                     ),
                     tableDimension,
                     new DisciplinaDataTableEntityActionListener(),
-                    true
+                    true,
+                    false
             );
             // Adicionar tabela ao conteudo
             this.getMain().add(this.disciplinaTurmaDataTable);
@@ -139,8 +137,6 @@ public class TurmaDisciplinasContent extends DefaultFormContent<DisciplinaTurma>
                     this.aulasSemanaTotalNumberTextField,
                     this.cargaHorariaTotalNumberTextField
             );
-            // Adicionar Gerenciavel a nova DisciplinaTurma
-            disciplinaTurma.setTurma(getContainer().getTurma());
             // Adicionar DisciplinaTurma a tabela
             this.disciplinaTurmaDataTable.addItem(disciplinaTurma);
             try {
@@ -228,25 +224,20 @@ public class TurmaDisciplinasContent extends DefaultFormContent<DisciplinaTurma>
      * Acao do botao salvar
      */
     private void save() {
+        // Resetar as disciplinas da turma
+        getContainer().getTurma().resetDisciplinasTurma();
         // Salvar as Disciplinas oficiais da Turma, atualizando as ja persistidas e persistinda as novas
         this.disciplinaTurmaDataTable.getData().stream().forEach((dt) -> {
-            try {
-                ServiceProvider.getInstance().getDisciplinaTurmaService().save(dt);
-            } catch (ServiceException ex) {
-                Logger.getLogger(HorariosContent.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            getContainer().getTurma().addDisciplinaTurma(dt);
         });
-
-        // Remover Disciplinas da lista de para remocao
-        this.disciplinasTurmaForRemove.stream().forEach((dt) -> {
-            try {
-                ServiceProvider.getInstance().getDisciplinaTurmaService().remove(dt);
-            } catch (ServiceException ex) {
-                Logger.getLogger(HorariosContent.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-        // Fechar janela
-        this.getContainer().close();
+        try {
+            // Atualizar turma
+            ServiceProvider.getInstance().getTurmaService().save(getContainer().getTurma());
+            // Fechar janela
+            this.getContainer().close();
+        } catch (ServiceException ex) {
+            MessageFactory.showErrorMessage(this, ex.getMessage());
+        }
     }
 
     @Override

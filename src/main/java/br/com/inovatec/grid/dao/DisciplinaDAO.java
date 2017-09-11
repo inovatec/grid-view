@@ -25,6 +25,11 @@ public class DisciplinaDAO extends GenericDAO<Disciplina> {
     public List<Disciplina> findAll() throws ListEntityException {
         return this.list("disciplina.findAll", null);
     }
+    
+    @Override
+    public String getGenericQuery() {
+        return "select d from Disciplina d where $1";
+    }
 
     /**
      * Buscar disciplinas de uma Turma

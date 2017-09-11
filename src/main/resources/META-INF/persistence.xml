@@ -17,10 +17,10 @@
         <class>br.com.inovatec.grid.entity.HoraAula</class>
         <class>br.com.inovatec.grid.entity.converter.LocalTimeAttributeConverter</class>
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/grid"/>
-            <property name="javax.persistence.jdbc.user" value="postgres"/>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-            <property name="javax.persistence.jdbc.password" value="123"/>
+            <property name="javax.persistence.jdbc.user" value="postgres"/>
+            <property name="javax.persistence.jdbc.password" value="pass@dmn3"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/grid"/>
             <property name="javax.persistence.schema-generation.database.action" value="create"/>
             <property name="javax.persistence.sql-load-script-source" value="META-INF/sql/scripts.sql"/>
         </properties>

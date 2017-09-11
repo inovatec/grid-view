@@ -27,6 +27,11 @@ public class UsuarioDAO extends GenericDAO<Usuario> {
         return this.list("usuario.findAll", null);
     }
     
+    @Override
+    public String getGenericQuery() {
+        return "select u from Usuario u where $1";
+    }
+    
     public Usuario autenticar(String login, String senha) throws AuthenticationException {
         Map<String, Object> params = new HashMap<>();
         params.put("login", login);

@@ -58,7 +58,6 @@ public class ProfessoresCompetentesContent extends DefaultFormContent<Professor>
                     .findByDisciplina(
                             this.getContainer()
                                     .getAula()
-                                    .getDisciplinaTurma()
                                     .getDisciplina()
                     );
             // Verificar se foram resgatados Professores

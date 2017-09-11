@@ -7,7 +7,6 @@ package br.com.inovatec.grid.view.component.factory;
 
 import br.com.inovatec.grid.view.component.form.TextArea;
 import br.com.inovatec.grid.view.component.util.ComponentUtils;
-import br.com.inovatec.grid.view.values.Dimens;
 import java.awt.Dimension;
 
 /**
@@ -33,9 +32,20 @@ public class TextAreaFactory {
         return textArea;
     }
     
+    public TextArea getTextArea(Dimension dimension, int limit) {
+        TextArea textArea = new TextArea(limit);
+        textArea.setPreferredSize(dimension);
+        return textArea;
+    }
+    
     public TextArea getTextArea(int containerWidth, int lineChilds, Double weight) {
         // Componente
         return getTextArea(ComponentUtils.getTextAreaDimension(containerWidth, lineChilds, weight));
+    }
+    
+    public TextArea getTextArea(int containerWidth, int lineChilds, Double weight, int limit) {
+        // Componente
+        return getTextArea(ComponentUtils.getTextAreaDimension(containerWidth, lineChilds, weight), limit);
     }
     
 }

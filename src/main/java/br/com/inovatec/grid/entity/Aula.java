@@ -16,7 +16,9 @@ import javax.persistence.SequenceGenerator;
 @NamedQueries(value = {
     @NamedQuery(name = "aula.findAll", query = "SELECT a FROM Aula a"),
     @NamedQuery(name = "aula.findAllByProfessor", query = "SELECT a FROM Aula a WHERE a.professor = :professor"),
-    @NamedQuery(name = "aula.findAllByTurmaAndDiaAula", query = "SELECT a FROM Aula a WHERE a.disciplinaTurma.turma = :turma AND a.horario.diaAula = :diaAula")
+    @NamedQuery(name = "aula.findAllByTurmaAndDiaAula", query = "SELECT a FROM Aula a WHERE a.turma = :turma AND a.horario.diaAula = :diaAula"),
+    @NamedQuery(name = "aula.findAllByTurmaAndPeriodo", query = "SELECT a FROM Aula a WHERE a.turma = :turma AND a.horario.diaAula.periodo = :periodo ORDER BY a.horario.diaAula, a.horario.inicio"),
+    @NamedQuery(name = "aula.findAllByPeriodo", query = "SELECT a FROM Aula a WHERE a.horario.diaAula.periodo = :periodo ORDER BY a.horario.diaAula, a.horario.inicio, a.turma.ano, a.turma.acronimo, a.disciplina.nome")
 })
 public class Aula implements Entidade<Long, Aula>, Serializable {
 
@@ -34,7 +36,10 @@ public class Aula implements Entidade<Long, Aula>, Serializable {
     private Sala sala;
     
     @ManyToOne
-    private DisciplinaTurma disciplinaTurma;
+    private Turma turma;
+    
+    @ManyToOne
+    private Disciplina disciplina;
     
     @ManyToOne(cascade = CascadeType.ALL)
     private Horario horario;
@@ -67,13 +72,21 @@ public class Aula implements Entidade<Long, Aula>, Serializable {
     public void setSala(Sala sala) {
         this.sala = sala;
     }
-    
-    public DisciplinaTurma getDisciplinaTurma() {
-        return disciplinaTurma;
+
+    public Turma getTurma() {
+        return turma;
     }
 
-    public void setDisciplinaTurma(DisciplinaTurma disciplinaTurma) {
-        this.disciplinaTurma = disciplinaTurma;
+    public void setTurma(Turma turma) {
+        this.turma = turma;
+    }
+
+    public Disciplina getDisciplina() {
+        return disciplina;
+    }
+
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
     }
 
     public Horario getHorario() {
@@ -111,7 +124,7 @@ public class Aula implements Entidade<Long, Aula>, Serializable {
 
     @Override
     public String toString() {
-        return "Aula{" + "id=" + id + ", professor=" + professor + ", sala=" + sala + ", disciplina=" + disciplinaTurma + ", horario=" + horario + '}';
+        return "Aula{" + "id=" + id + ", professor=" + professor + ", sala=" + sala + ", turma=" + turma + ", disciplina=" + disciplina + ", horario=" + horario + '}';
     }
     
     @Override

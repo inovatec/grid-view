@@ -133,7 +133,8 @@ public class HorariosContent extends DefaultFormContent<Gerenciavel> {
                     ),
                     tableDimension,
                     new HorarioDataTableEntityActionListener(),
-                    true
+                    true,
+                    false
             );
             // Adicionar tabela ao conteudo
             this.getMain().add(this.horariosDataTable);
@@ -225,7 +226,7 @@ public class HorariosContent extends DefaultFormContent<Gerenciavel> {
                     horaInicioMaskedTextField,
                     horaFimMaskedTextField
             );
-            // Adicionar Gerenciavel ao novo horario
+            // Adicionar horario ao gerenciavel
             horario.setGerenciavel(getContainer().getGerenciavel());
             // Adicionar horario a tabela
             horariosDataTable.addItem(horario);
@@ -255,6 +256,7 @@ public class HorariosContent extends DefaultFormContent<Gerenciavel> {
             this.horariosForRemove.stream().forEach((h) -> {
                 try {
                     ServiceProvider.getInstance().getHorarioService().remove(h);
+                    getContainer().getGerenciavel().getHorarios().remove(h);
                 } catch (ServiceException ex) {
                     Logger.getLogger(HorariosContent.class.getName()).log(Level.SEVERE, null, ex);
                 }

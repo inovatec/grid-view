@@ -13,6 +13,7 @@ import br.com.inovatec.grid.entity.Professor;
 import br.com.inovatec.grid.entity.Turma;
 import br.com.inovatec.grid.service.AulaService;
 import br.com.inovatec.grid.service.exception.ServiceException;
+import br.com.inovatec.grid.view.session.Session;
 import java.util.List;
 
 /**
@@ -42,9 +43,32 @@ public class AulaServiceImpl extends AbstractService<Aula, AulaDAO> implements A
     }
     
     @Override
+    public List<Aula> findAll(Turma turma, Integer periodo) throws ServiceException {
+        try {
+            return this.aulaDAO.findAll(turma, periodo);
+        } catch (ListEntityException ex) {
+            throw new ServiceException(ex);
+        }
+    }
+    
+    @Override
+    public List<Aula> findAllByPeriodoCorrente(Turma turma) throws ServiceException {
+        return this.findAll(turma, Session.getInstance().getEscola().getPeriodoCorrente());
+    }
+    
+    @Override
     public List<Aula> findAll(Turma turma, DiaAula diaAula) throws ServiceException {
         try {
             return this.aulaDAO.findAll(turma, diaAula);
+        } catch (ListEntityException ex) {
+            throw new ServiceException(ex);
+        }
+    }
+
+    @Override
+    public List<Aula> findAll(Integer periodo) throws ServiceException {
+        try {
+            return this.aulaDAO.findAll(periodo);
         } catch (ListEntityException ex) {
             throw new ServiceException(ex);
         }

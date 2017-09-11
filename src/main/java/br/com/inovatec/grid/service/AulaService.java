@@ -28,6 +28,25 @@ public interface AulaService extends GenericService<Aula>{
     public List<Aula> findAll(Professor professor) throws ServiceException;
     
     /**
+     * Obter as Aulas de uma determinada turma e periodo
+     * 
+     * @param turma
+     * @param periodo
+     * @return
+     * @throws ServiceException 
+     */
+    public List<Aula> findAll(Turma turma, Integer periodo) throws ServiceException;
+    
+    /**
+     * Obter as Aulas de uma determinada turma do periodo corrente
+     * 
+     * @param turma
+     * @return
+     * @throws ServiceException 
+     */
+    public List<Aula> findAllByPeriodoCorrente(Turma turma) throws ServiceException;
+    
+    /**
      * Obter as Aulas de uma determinada turma e dia da semana
      * 
      * @param turma
@@ -36,5 +55,14 @@ public interface AulaService extends GenericService<Aula>{
      * @throws ServiceException 
      */
     public List<Aula> findAll(Turma turma, DiaAula diaAula) throws ServiceException;
+    
+    /**
+     * Obter todas as Aulas da Escola por período
+     * 
+     * @param periodo
+     * @return
+     * @throws ServiceException 
+     */
+    public List<Aula> findAll(Integer periodo) throws ServiceException;
     
 }

@@ -130,10 +130,14 @@ public class Dimens {
     public static final int DISCIPLINA_TURMA_DIALOG_WIDTH = 800;
     public static final int DISCIPLINA_TURMA_CONTENT_HEIGHT = 400;
     public static final int DISCIPLINA_TURMA_TABLE_HEIGHT = 200;
+    // Aulas
+    public static final int AULAS_DIALOG_WIDTH = 800;
+    public static final int AULAS_DIALOG_HEIGHT = 600;
+    public static final int AULAS_TABLE_HEIGHT = 410;
     
     // ========= GradeJFrame ============
     public static final int TURMAS_LEFT_PANEL_WIDTH = 210;
-    public static final int AULA_BORDER_SIZE = 8;
+    public static final int AULA_BORDER_SIZE = 5;
     // ProfessoresCompetentesJDialog
     public static final int PROFESSORES_COMPETENTES_DIALOG_WIDTH = 620;
     public static final int PROFESSORES_COMPETENTES_DIALOG_HEIGHT = 532;
@@ -150,5 +154,23 @@ public class Dimens {
     // Sobre
     public static final int SOBRE_DIALOG_WIDTH = 512;
     public static final int SOBRE_DIALOG_HEIGHT = 320;
+    
+    // ========= Filters =========
+    // DisciplinasFilter
+    public static final int DISCIPLINAS_FILTER_DIALOG_WIDTH = 390;
+    public static final int DISCIPLINAS_FILTER_DIALOG_HEIGHT = 245;
+    // ProfessoresFilter
+    public static final int PROFESSORES_FILTER_DIALOG_WIDTH = 600;
+    public static final int PROFESSORES_FILTER_DIALOG_HEIGHT = 420;
+    // TurmasFilter
+    public static final int TURMAS_FILTER_DIALOG_WIDTH = 390;
+    public static final int TURMAS_FILTER_DIALOG_HEIGHT = 335;
+    // SalasFilter
+    public static final int SALAS_FILTER_DIALOG_WIDTH = 390;
+    public static final int SALAS_FILTER_DIALOG_HEIGHT = 335;
+    // AulasFilter
+    public static final int AULAS_FILTER_DIALOG_WIDTH = 390;
+    public static final int AULAS_FILTER_DIALOG_HEIGHT = 335;
+    
     
 }

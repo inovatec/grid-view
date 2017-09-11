@@ -5,6 +5,7 @@
  */
 package br.com.inovatec.grid.view.component.form;
 
+import br.com.inovatec.grid.view.values.Colors;
 import br.com.inovatec.grid.view.values.Styles;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -85,6 +86,16 @@ public class Button extends JButton implements FocusListener {
         this.type = type;
     }
 
+    @Override
+    public void setEnabled(boolean b) {
+        if (b) {
+            this.setForeground(this.foregroundColor);
+        } else {
+             this.setForeground(Colors.COLOR_FONT_DISABLED);
+        }
+        super.setEnabled(b);
+    }    
+    
     /**
      * Configurar botao
      */
@@ -114,7 +125,7 @@ public class Button extends JButton implements FocusListener {
             } else if (getModel().isRollover()) {
                 g.setColor(this.hoverBackgroundColor);
             } else if (!getModel().isEnabled()) {
-                g.setColor(this.disabledColor);                
+                g.setColor(this.disabledColor);
             } else {
                 g.setColor(this.backgroundColor);
             }

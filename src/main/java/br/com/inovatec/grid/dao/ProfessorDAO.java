@@ -27,6 +27,11 @@ public class ProfessorDAO extends GenericDAO<Professor> {
         return this.list("professor.findAll", null);
     }
     
+    @Override
+    public String getGenericQuery() {
+        return "select p from Professor p where $1";
+    }
+    
     public List<Professor> findByNome(String nome) throws ListEntityException {
         Map<String, Object> params = new HashMap<>();
         params.put("nome", "%" + nome + "%");

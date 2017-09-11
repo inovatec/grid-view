@@ -34,7 +34,7 @@ public abstract class Gerenciavel implements Entidade<Long, Gerenciavel>, Serial
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GERENCIAVEL_ID")
     private Long id;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "gerenciavel", fetch = FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH}, mappedBy = "gerenciavel", fetch = FetchType.LAZY)
     private List<Horario> horarios;
 
     public Gerenciavel() {
@@ -92,6 +92,22 @@ public abstract class Gerenciavel implements Entidade<Long, Gerenciavel>, Serial
     @Override
     public int compareTo(Gerenciavel o) {
         return this.getId().compareTo(o.getId());
+    }
+    
+    /**
+     * Adicionar horario
+     * 
+     * @param horario 
+     */
+    public void addHorario(Horario horario) {
+        this.horarios.add(horario);
+        if (horario.getGerenciavel() != this) {
+            horario.setGerenciavel(this);
+        }
+    }
+    
+    public void resetHorarios() {
+        this.horarios = new ArrayList<>();
     }
 
 }

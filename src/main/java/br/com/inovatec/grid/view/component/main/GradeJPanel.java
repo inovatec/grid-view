@@ -5,10 +5,10 @@
  */
 package br.com.inovatec.grid.view.component.main;
 
+import br.com.inovatec.grid.entity.Turma;
 import br.com.inovatec.grid.view.values.Colors;
 import br.com.inovatec.grid.view.values.Dimens;
 import br.com.inovatec.grid.view.values.Styles;
-import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -21,9 +21,9 @@ public class GradeJPanel extends javax.swing.JPanel {
     /**
      * Creates new form GradeJPanel
      * @param diasAulaSize
-     * @param nomeTurma
+     * @param turma
      */
-    public GradeJPanel(int diasAulaSize, String nomeTurma) {
+    public GradeJPanel(int diasAulaSize, Turma turma) {
         initComponents();
         this.contentJPanel.setLayout(new java.awt.GridLayout(
                 1,
@@ -31,7 +31,11 @@ public class GradeJPanel extends javax.swing.JPanel {
                 Dimens.DEFAULT_MIN_PADDING,
                 Dimens.DEFAULT_MIN_PADDING
         ));
-        this.titleJLabel.setText(nomeTurma.toUpperCase());
+        StringBuilder sb = new StringBuilder(turma.getNome().toUpperCase());
+        sb.append(" (");
+        sb.append(turma.getSala().getNome());
+        sb.append(")");
+        this.titleJLabel.setText(sb.toString());
     }
     
     /**

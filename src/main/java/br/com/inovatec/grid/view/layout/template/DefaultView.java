@@ -23,12 +23,13 @@ import java.awt.event.KeyEvent;
  * @author zrobe
  */
 public abstract class DefaultView implements DialogView {
-    
+
+    private boolean constructed = false;
     private final View requester;
     private final JDialog dialog;
     private final int width, height;
     private final String headerTitle, headerTip;
-    
+
     public DefaultView(DialogView requester, String title, String headerTitle, String headerTip, int width, int height) {
         this.dialog = new JDialog(requester.getDialog(), title, true);
         this.requester = requester;
@@ -39,7 +40,7 @@ public abstract class DefaultView implements DialogView {
         // Inicializar configuracoes padrao
         this.preRenderView();
     }
-    
+
     public DefaultView(FrameView requester, String title, String headerTitle, String headerTip, int width, int height) {
         this.dialog = new JDialog(requester.getFrame(), title, true);
         this.requester = requester;
@@ -50,28 +51,28 @@ public abstract class DefaultView implements DialogView {
         // Inicializar configuracoes padrao
         this.preRenderView();
     }
-    
+
     public View getRequester() {
         return requester;
     }
-    
+
     public int getWidth() {
         return this.width;
     }
-    
+
     public int getHeight() {
         return this.height;
     }
-    
+
     @Override
     public JDialog getDialog() {
         return this.dialog;
     }
-    
+
     public String getHeaderTitle() {
         return this.headerTitle;
     }
-    
+
     public String getHeaderTip() {
         return this.headerTip;
     }
@@ -126,8 +127,13 @@ public abstract class DefaultView implements DialogView {
      */
     @Override
     public void display() {
-        // Configuracoes apos a construcao da view
-        this.postRenderView();
+        // Verificar se ja foi construida
+        if (!this.constructed) {
+            // Configuracoes apos a construcao da view
+            this.postRenderView();
+            // configurar que ja foi construida
+            this.constructed = true;
+        }
         // Exibir a Dialog
         this.dialog.setVisible(true);
     }
@@ -141,25 +147,25 @@ public abstract class DefaultView implements DialogView {
      * Classe para o gerenciamento de eventos da dialog
      */
     private class ParentWindowAdapter extends WindowAdapter {
-        
+
         @Override
         public void windowClosing(WindowEvent e) {
             // Fechar
             close();
         }
-        
+
         @Override
         public void windowClosed(WindowEvent e) {
             // Atualizar a view requisitante
             refreshViewRequester();
         }
-        
+
     }
-    
+
     @Override
     public void close() {
         this.dialog.dispose();
-        
+
     }
-    
+
 }

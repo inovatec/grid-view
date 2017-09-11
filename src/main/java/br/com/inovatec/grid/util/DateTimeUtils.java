@@ -6,6 +6,7 @@
 package br.com.inovatec.grid.util;
 
 import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -24,6 +25,10 @@ public class DateTimeUtils {
     
     public static LocalTime getTime(String strTime) throws DateTimeParseException {
         return LocalTime.parse(strTime);
+    }
+    
+    public static String getFormalFormattedDateTime(LocalDateTime dateTime) {
+        return dateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " às " + dateTime.format(DateTimeFormatter.ofPattern("HH:mm"));
     }
     
     public static String getDayName(DayOfWeek dayOfWeek) {

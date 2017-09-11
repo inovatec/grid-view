@@ -22,6 +22,7 @@ public class Colors {
     
     public static final Color COLOR_WHITE = new Color(255, 255, 255);
     public static final Color COLOR_FONT = new Color(30, 30, 30);
+    public static final Color COLOR_FONT_DISABLED = new Color(100, 100, 100);
     
     public static final Color COLOR_GREEN = new Color(113, 196, 148);
     public static final Color COLOR_GREEN_HOVER = new Color(113, 196, 148);

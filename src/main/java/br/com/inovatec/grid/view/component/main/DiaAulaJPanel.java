@@ -8,6 +8,8 @@ package br.com.inovatec.grid.view.component.main;
 import br.com.inovatec.grid.entity.Aula;
 import br.com.inovatec.grid.entity.DiaAula;
 import br.com.inovatec.grid.entity.Horario;
+import br.com.inovatec.grid.entity.Turma;
+import br.com.inovatec.grid.view.component.form.util.GradeListener;
 import br.com.inovatec.grid.view.values.Colors;
 import br.com.inovatec.grid.view.values.Styles;
 import java.awt.Component;
@@ -29,7 +31,7 @@ public class DiaAulaJPanel extends JPanel {
     private final List<Aula> aulasPreenchidas;
     private final JPanel aulasContainerJPanel;
 
-    public DiaAulaJPanel(Integer totalAulas, DiaAula diaAula, List<Aula> aulasPreenchidas, List<Horario> horarios, MouseListener ml) {
+    public DiaAulaJPanel(Integer totalAulas, DiaAula diaAula, Turma turma, List<Aula> aulasPreenchidas, List<Horario> horarios, MouseListener ml, boolean viewOnly, GradeListener gradeListener) {
         this.diaAula = diaAula;
         this.aulasPreenchidas = aulasPreenchidas;
         this.aulasContainerJPanel = new javax.swing.JPanel();
@@ -56,8 +58,15 @@ public class DiaAulaJPanel extends JPanel {
         horarios.forEach(h -> {
             // Obter a aula que tem o horario da iteracao. Idealmente, deve haver apenas uma aula com esses criterios
             Aula aula = aulasPreenchidas.stream().filter(x -> x.getHorario().equals(h)).findAny().orElse(null);
+            // Verificar se houve aula retornada
+            if (aula == null) {
+                aula = new Aula();
+                aula.setTurma(turma);
+                aula.setHorario(h);
+                aula.setSala(turma.getSala());
+            }
             // Criar painel com as informacoes obtidas
-            AulaJPanel aulaJPanel = new AulaJPanel(aula, h);
+            AulaJPanel aulaJPanel = new AulaJPanel(aula, viewOnly, gradeListener);
             aulaJPanel.addMouseListener(ml);
             // Adicionar painel da aula
             aulasContainerJPanel.add(aulaJPanel);

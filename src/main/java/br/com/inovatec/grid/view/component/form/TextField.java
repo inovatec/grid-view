@@ -5,6 +5,7 @@
  */
 package br.com.inovatec.grid.view.component.form;
 
+import br.com.inovatec.grid.view.component.form.util.JTextFieldLimit;
 import br.com.inovatec.grid.view.contract.Field;
 import br.com.inovatec.grid.view.values.Colors;
 import br.com.inovatec.grid.view.values.Styles;
@@ -35,6 +36,15 @@ public class TextField extends javax.swing.JPanel implements Field {
         this.jTextField.setText(text);
     }
     
+    /**
+     * Creates new form TextField with limit
+     * @param limit
+     */
+    public TextField(int limit) {
+        this();
+        this.jTextField.setDocument(new JTextFieldLimit(limit));
+    }
+    
     private void init() {
         this.jTextField.addFocusListener(new FocusListener() {
             @Override
@@ -47,6 +57,13 @@ public class TextField extends javax.swing.JPanel implements Field {
                 
             }
         });
+    }
+    
+    /**
+     * Resetar campo
+     */
+    public void reset() {
+        this.jTextField.setText(null);
     }
 
     /**

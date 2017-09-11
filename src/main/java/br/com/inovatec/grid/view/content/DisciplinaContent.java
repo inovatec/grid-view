@@ -53,12 +53,12 @@ public class DisciplinaContent extends DefaultFormContent<Disciplina> {
         // Adicionar Labels da primeira linha
         this.getMain().add(LabelFactory.getInstance().getLabel(Strings.DISCIPLINA_DIALOG_NOME_FIELD, this.getWidth(), 1, Dimens.WEIGHT_100));
         // Adicionar TextFields da primeira linha
-        this.nomeTextField = TextFieldFactory.getInstance().getTextField(this.getWidth(), 1, Dimens.WEIGHT_100);
+        this.nomeTextField = TextFieldFactory.getInstance().getTextField(this.getWidth(), 1, Dimens.WEIGHT_100, 100);
         this.getMain().add(this.nomeTextField);
         // Adicionar Labels da segunda linha
         this.getMain().add(LabelFactory.getInstance().getLabel(Strings.DISCIPLINA_DIALOG_DESCRICAO_FIELD, this.getWidth(), 1, Dimens.WEIGHT_100));
         // Adicionar TextFields da segunda linha
-        this.descricaoTextArea = TextAreaFactory.getInstance().getTextArea(this.getWidth(), 1, Dimens.WEIGHT_100);
+        this.descricaoTextArea = TextAreaFactory.getInstance().getTextArea(this.getWidth(), 1, Dimens.WEIGHT_100, 255);
         this.getMain().add(this.descricaoTextArea);
         // Add campos do formulario [END]
         // Preencher dados da disciplina caso exista

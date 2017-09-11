@@ -6,6 +6,7 @@
 package br.com.inovatec.grid.service;
 
 import br.com.inovatec.grid.service.exception.ServiceException;
+import br.com.inovatec.grid.util.object.CriteriaParam;
 import java.util.List;
 
 /**
@@ -19,6 +20,8 @@ public interface GenericService<T> {
     public T find(Long id) throws ServiceException;
     public void update(T obj) throws ServiceException;
     public void remove(T obj) throws ServiceException;
+    public void refresh(T obj) throws ServiceException;
     public List<T> findAll() throws ServiceException;
+    public List<T> findAll(List<CriteriaParam> criteriaParams) throws ServiceException;
     
 }

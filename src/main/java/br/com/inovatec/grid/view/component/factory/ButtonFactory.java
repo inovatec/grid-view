@@ -84,6 +84,14 @@ public class ButtonFactory {
     public Button getOkButton(Color containerColor, ButtonActionListener actionListener) {
         return buildWithDefaultDimensions(buildGreenButton("OK", null, containerColor, actionListener));
     }
+    
+    public Button getApplyFiltersButton(Color containerColor, ButtonActionListener actionListener) {
+        return buildWithDefaultDimensions(buildGreenButton("Filtrar", null, containerColor, actionListener));
+    }
+    
+    public Button getResetFiltersButton(Color containerColor, ButtonActionListener actionListener) {
+        return buildWithDefaultDimensions(buildRedButton("Limpar", null, containerColor, actionListener));
+    }
 
     public Button getCloseButton(Color containerColor, ButtonActionListener actionListener) {
         return buildWithDefaultDimensions(buildGreyButton("Fechar", null, containerColor, actionListener));

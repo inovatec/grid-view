@@ -26,6 +26,11 @@ public class EscolaDAO extends GenericDAO<Escola> {
         return this.list("escola.findAll", null);
     }
     
+    @Override
+    public String getGenericQuery() {
+        return "select e from Escola e where $1";
+    }
+    
     public Escola get() throws SearchEntityException {
         try {
             return getEm().createNamedQuery("escola.findAll", Escola.class).setMaxResults(1).getSingleResult();

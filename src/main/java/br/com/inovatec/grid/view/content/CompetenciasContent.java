@@ -90,7 +90,8 @@ public class CompetenciasContent extends DefaultFormContent<Professor> {
                     new DisciplinaDataModel(new ArrayList<>(this.getContainer().getProfessor().getDisciplinas())),
                     tableDimension,
                     new DisciplinaDataTableEntityActionListener(),
-                    true
+                    true,
+                    false
             );
             // Adicionar tabela ao conteudo
             this.getMain().add(this.disciplinasDataTable);

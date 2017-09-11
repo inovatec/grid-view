@@ -64,6 +64,9 @@ public class Strings {
     public static final String COMPETENCIAS_DIALOG_TITLE = "Competências";
     public static final String COMPETENCIAS_CONTENT_HEADER_TIP = "Disciplinas do Professor";
     public static final String COMPETENCIAS_PROFESSOR_CONTENT_HEADER_TIP = "Disciplinas do Professor $1";
+    // Titulos - Aulas
+    public static final String AULAS_DIALOG_TITLE = "Aulas";
+    public static final String AULAS_CONTENT_HEADER_TIP = "Aulas do ano Letivo $1";
     // Titulos - Grade de Horarios - Professores Competentes
     public static final String PROFESSORES_COMPETENTES_DIALOG_TITLE = "Professores Habilitados de $1";
     public static final String PROFESSORES_COMPETENTES_CONTENT_HEADER_TIP = "Horário: $1 - $2";
@@ -81,6 +84,13 @@ public class Strings {
     // Titulos - Sobre
     public static final String SOBRE_TITLE = "Sobre";
     public static final String SOBRE_CONTENT_HEADER_TIP = "GRID versão 1.0";
+    
+    // Titulos - Filtros
+    public static final String DISCIPLINAS_FILTER_TITLE = "Filtrar Disciplinas";
+    public static final String PROFESSORES_FILTER_TITLE = "Filtrar Professores";
+    public static final String TURMAS_FILTER_TITLE = "Filtrar Turmas";
+    public static final String SALAS_FILTER_TITLE = "Filtrar Salas de Aula";
+    public static final String AULAS_FILTER_TITLE = "Filtrar Aulas";
     
     // Login
     public static final String LOGIN_DIALOG_TITLE = "Login";
@@ -125,7 +135,7 @@ public class Strings {
     
     // Campos - Disciplinas
     // Disciplina
-    public static final String DISCIPLINA_DIALOG_NOME_FIELD = "Nome";
+    public static final String DISCIPLINA_DIALOG_NOME_FIELD = "Nome *";
     public static final String DISCIPLINA_DIALOG_DESCRICAO_FIELD = "Descrição";
     
     // Campos - Salas
@@ -229,6 +239,8 @@ public class Strings {
     
     // ================ Grade de Horarios ================
     public static final String GRADE_HORARIOS_STATUS_VAGO = "Vago";
+    public static final String GRADE_HORARIOS_TURMA_VAGA = "Sem turma!";
+    
     // Messages
     public static final String GRADE_HORARIOS_TURMA_SEM_DISCIPLINAS = "Não foram atribuídas disciplinas para esta turma.";
     public static final String GRADE_HORARIOS_AULA_PROFESSOR_NULL = "Sem Professor!";

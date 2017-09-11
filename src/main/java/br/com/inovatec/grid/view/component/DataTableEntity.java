@@ -31,6 +31,7 @@ public class DataTableEntity<T extends Entidade, M extends AbstractTableDataMode
 
     private M model;
     private final DataTableEntityActionListener dataTableEntityActionListener;
+    private final boolean simplified;
 
     /**
      * Creates new form DataTable
@@ -38,14 +39,20 @@ public class DataTableEntity<T extends Entidade, M extends AbstractTableDataMode
      * @param model
      * @param dataTableEntityActionListener
      * @param deletePermission
+     * @param simplified
      */
-    public DataTableEntity(M model, DataTableEntityActionListener dataTableEntityActionListener, boolean deletePermission) {
+    public DataTableEntity(M model, DataTableEntityActionListener dataTableEntityActionListener, boolean deletePermission, boolean simplified) {
         initComponents();
         this.model = model;
         this.dataTableEntityActionListener = dataTableEntityActionListener;
         this.jTable.setModel(this.model);
+        this.simplified = simplified;
         // Configuracoes iniciais
         this.init(dataTableEntityActionListener, deletePermission);
+        // Verificar se eh simples
+        if (this.simplified) {
+            this.actionsPanel.remove(this.tipJLabel);
+        }
     }
 
     /**
@@ -55,9 +62,10 @@ public class DataTableEntity<T extends Entidade, M extends AbstractTableDataMode
      * @param dimension
      * @param dataTableEntityActionListener
      * @param deletePermission
+     * @param simplified
      */
-    public DataTableEntity(M model, Dimension dimension, DataTableEntityActionListener dataTableEntityActionListener, boolean deletePermission) {
-        this(model, dataTableEntityActionListener, deletePermission);
+    public DataTableEntity(M model, Dimension dimension, DataTableEntityActionListener dataTableEntityActionListener, boolean deletePermission, boolean simplified) {
+        this(model, dataTableEntityActionListener, deletePermission, simplified);
         this.setPreferredSize(dimension);
         this.jTable.setDefaultRenderer(Object.class, new DataTableCellRender());
         this.jTable.setRowHeight(Dimens.DEFAULT_TABLE_ROW_HEIGHT);

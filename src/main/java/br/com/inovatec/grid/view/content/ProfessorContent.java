@@ -57,12 +57,12 @@ public class ProfessorContent extends DefaultFormContent<Professor> {
         // Add campos do formulario [BEGIN]
         // Linha 1
         this.getMain().add(LabelFactory.getInstance().getLabel(Strings.PROFESSOR_DIALOG_NOME_FIELD, this.getWidth(), 1, Dimens.WEIGHT_100));
-        this.nomeTextField = TextFieldFactory.getInstance().getTextField(this.getWidth(), 1, Dimens.WEIGHT_100);
+        this.nomeTextField = TextFieldFactory.getInstance().getTextField(this.getWidth(), 1, Dimens.WEIGHT_100, 100);
         this.getMain().add(this.nomeTextField);
         // Linha 2
         this.getMain().add(LabelFactory.getInstance().getLabel(Strings.PROFESSOR_DIALOG_RG_FIELD, this.getWidth(), 2, Dimens.WEIGHT_50));
         this.getMain().add(LabelFactory.getInstance().getLabel(Strings.PROFESSOR_DIALOG_CPF_FIELD, this.getWidth(), 2, Dimens.WEIGHT_50));
-        this.rgTextField = TextFieldFactory.getInstance().getTextField(this.getWidth(), 2, Dimens.WEIGHT_50);
+        this.rgTextField = TextFieldFactory.getInstance().getTextField(this.getWidth(), 2, Dimens.WEIGHT_50, 50);
         this.cpfTextField = TextFieldFactory.getInstance().getMaskedTextField(this.getWidth(), 2, Dimens.WEIGHT_50, "###.###.###-##");
         this.getMain().add(this.rgTextField);
         this.getMain().add(this.cpfTextField);
@@ -70,7 +70,7 @@ public class ProfessorContent extends DefaultFormContent<Professor> {
         this.getMain().add(LabelFactory.getInstance().getLabel(Strings.PROFESSOR_DIALOG_EMAIL_FIELD, this.getWidth(), 3, Dimens.WEIGHT_33));
         this.getMain().add(LabelFactory.getInstance().getLabel(Strings.PROFESSOR_DIALOG_TELEFONE_FIELD, this.getWidth(), 3, Dimens.WEIGHT_33));
         this.getMain().add(LabelFactory.getInstance().getLabel(Strings.PROFESSOR_DIALOG_CELULAR_FIELD, this.getWidth(), 3, Dimens.WEIGHT_33));
-        this.emailTextField = TextFieldFactory.getInstance().getTextField(this.getWidth(), 3, Dimens.WEIGHT_33);
+        this.emailTextField = TextFieldFactory.getInstance().getTextField(this.getWidth(), 3, Dimens.WEIGHT_33, 100);
         this.telefoneTextField = TextFieldFactory.getInstance().getMaskedTextField(this.getWidth(), 3, Dimens.WEIGHT_33, "(##) ####-####");
         this.celularTextField = TextFieldFactory.getInstance().getMaskedTextField(this.getWidth(), 3, Dimens.WEIGHT_33, "(##) #####-####");
         this.getMain().add(this.emailTextField);
@@ -79,24 +79,24 @@ public class ProfessorContent extends DefaultFormContent<Professor> {
         // Linha 4
         this.getMain().add(LabelFactory.getInstance().getLabel(Strings.PROFESSOR_DIALOG_ENDERECO_LOGRADOURO_FIELD, this.getWidth(), 2, Dimens.WEIGHT_75));
         this.getMain().add(LabelFactory.getInstance().getLabel(Strings.PROFESSOR_DIALOG_ENDERECO_NUMERO_FIELD, this.getWidth(), 2, Dimens.WEIGHT_25));
-        this.logradouroTextField = TextFieldFactory.getInstance().getTextField(this.getWidth(), 2, Dimens.WEIGHT_75);
-        this.numeroTextField = TextFieldFactory.getInstance().getTextField(this.getWidth(), 2, Dimens.WEIGHT_25);
+        this.logradouroTextField = TextFieldFactory.getInstance().getTextField(this.getWidth(), 2, Dimens.WEIGHT_75, 100);
+        this.numeroTextField = TextFieldFactory.getInstance().getTextField(this.getWidth(), 2, Dimens.WEIGHT_25, 10);
         this.getMain().add(this.logradouroTextField);
         this.getMain().add(this.numeroTextField);
         // Linha 5
         this.getMain().add(LabelFactory.getInstance().getLabel(Strings.PROFESSOR_DIALOG_ENDERECO_COMPLEMENTO_FIELD, this.getWidth(), 2, Dimens.WEIGHT_66));
         this.getMain().add(LabelFactory.getInstance().getLabel(Strings.PROFESSOR_DIALOG_ENDERECO_BAIRRO_FIELD, this.getWidth(), 2, Dimens.WEIGHT_33));
-        this.complementoTextField = TextFieldFactory.getInstance().getTextField(this.getWidth(), 2, Dimens.WEIGHT_66);
-        this.bairroTextField = TextFieldFactory.getInstance().getTextField(this.getWidth(), 2, Dimens.WEIGHT_33);
+        this.complementoTextField = TextFieldFactory.getInstance().getTextField(this.getWidth(), 2, Dimens.WEIGHT_66, 100);
+        this.bairroTextField = TextFieldFactory.getInstance().getTextField(this.getWidth(), 2, Dimens.WEIGHT_33, 100);
         this.getMain().add(this.complementoTextField);
         this.getMain().add(this.bairroTextField);
         // Linha 6
         this.getMain().add(LabelFactory.getInstance().getLabel(Strings.PROFESSOR_DIALOG_ENDERECO_CIDADE_FIELD, this.getWidth(), 3, Dimens.WEIGHT_33));
         this.getMain().add(LabelFactory.getInstance().getLabel(Strings.PROFESSOR_DIALOG_ENDERECO_UF_FIELD, this.getWidth(), 3, Dimens.WEIGHT_33));
         this.getMain().add(LabelFactory.getInstance().getLabel(Strings.PROFESSOR_DIALOG_ENDERECO_PAIS_FIELD, this.getWidth(), 3, Dimens.WEIGHT_33));
-        this.cidadeTextField = TextFieldFactory.getInstance().getTextField(this.getWidth(), 3, Dimens.WEIGHT_33);
+        this.cidadeTextField = TextFieldFactory.getInstance().getTextField(this.getWidth(), 3, Dimens.WEIGHT_33, 100);
         this.ufTextField = TextFieldFactory.getInstance().getMaskedTextField(this.getWidth(), 3, Dimens.WEIGHT_33, "UU");
-        this.paisTextField = TextFieldFactory.getInstance().getTextField(this.getWidth(), 3, Dimens.WEIGHT_33);
+        this.paisTextField = TextFieldFactory.getInstance().getTextField(this.getWidth(), 3, Dimens.WEIGHT_33, 100);
         this.getMain().add(this.cidadeTextField);
         this.getMain().add(this.ufTextField);
         this.getMain().add(this.paisTextField);

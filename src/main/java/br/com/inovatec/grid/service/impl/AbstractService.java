@@ -6,15 +6,16 @@
 package br.com.inovatec.grid.service.impl;
 
 import br.com.inovatec.grid.dao.GenericDAO;
-import br.com.inovatec.grid.dao.exceptions.CreateEntityException;
 import br.com.inovatec.grid.dao.exceptions.ListEntityException;
 import br.com.inovatec.grid.dao.exceptions.PersistEntityException;
+import br.com.inovatec.grid.dao.exceptions.RefreshEntityException;
 import br.com.inovatec.grid.dao.exceptions.RemoveEntityException;
 import br.com.inovatec.grid.dao.exceptions.SearchEntityException;
 import br.com.inovatec.grid.dao.exceptions.UpdateEntityException;
 import br.com.inovatec.grid.entity.Entidade;
 import br.com.inovatec.grid.service.GenericService;
 import br.com.inovatec.grid.service.exception.ServiceException;
+import br.com.inovatec.grid.util.object.CriteriaParam;
 import java.util.List;
 
 /**
@@ -62,11 +63,29 @@ public abstract class AbstractService<T extends Entidade, G extends GenericDAO<T
             throw new ServiceException(ex);
         }
     }
+    
+    @Override
+    public void refresh(T obj) throws ServiceException {
+        try {
+            this.getGenericDAO().refresh(obj);
+        } catch (RefreshEntityException ex) {
+            throw new ServiceException(ex);
+        }
+    }
 
     @Override
     public List<T> findAll() throws ServiceException {
         try {
             return this.getGenericDAO().findAll();
+        } catch (ListEntityException ex) {
+            throw new ServiceException(ex);
+        }
+    }
+
+    @Override
+    public List<T> findAll(List<CriteriaParam> criteriaParams) throws ServiceException {
+        try {
+            return this.getGenericDAO().findAll(criteriaParams);
         } catch (ListEntityException ex) {
             throw new ServiceException(ex);
         }

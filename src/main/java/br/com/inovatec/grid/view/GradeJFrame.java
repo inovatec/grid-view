@@ -7,6 +7,7 @@ package br.com.inovatec.grid.view;
 
 import br.com.inovatec.grid.entity.Aula;
 import br.com.inovatec.grid.entity.DiaAula;
+import br.com.inovatec.grid.entity.Disciplina;
 import br.com.inovatec.grid.entity.DisciplinaTurma;
 import br.com.inovatec.grid.entity.Horario;
 import br.com.inovatec.grid.entity.Professor;
@@ -20,6 +21,7 @@ import br.com.inovatec.grid.view.component.factory.SelectOneMenuFactory;
 import br.com.inovatec.grid.view.component.form.Button;
 import br.com.inovatec.grid.view.component.form.MultilineLabel;
 import br.com.inovatec.grid.view.component.form.SelectOneMenu;
+import br.com.inovatec.grid.view.component.form.util.GradeListener;
 import br.com.inovatec.grid.view.component.listener.ButtonActionListener;
 import br.com.inovatec.grid.view.component.main.AulaJPanel;
 import br.com.inovatec.grid.view.component.main.DiaAulaJPanel;
@@ -59,7 +61,7 @@ public class GradeJFrame extends javax.swing.JFrame implements FrameView {
 
     private static final int MIN_DISCIPLINAS_SIZE = 12;
     private static final int MIN_DIAS_AULA_SIZE = 5;
-    
+
     private boolean modified = false;
 
     private final MainJFrame mainJFrame;
@@ -76,8 +78,8 @@ public class GradeJFrame extends javax.swing.JFrame implements FrameView {
     private List<Professor> todosProfessores;
     private SelectOneMenu<Turma> turmasSelectOneMenu;
 
-    private Button closeButton, saveButton;
-    
+    private Button closeButton, undoButton, saveButton;
+
     /**
      * Creates new form GradeJFrame
      *
@@ -108,7 +110,17 @@ public class GradeJFrame extends javax.swing.JFrame implements FrameView {
             }
         });
         this.actionsJPanel.add(this.closeButton);
-        
+
+        this.undoButton = ButtonFactory.getInstance().getEditButton(Colors.COLOR_MAIN, new ButtonActionListener() {
+            @Override
+            public void action() {
+                showTurma();
+                setModified(false);
+            }
+        });
+        this.undoButton.setText("Desfazer");
+        this.actionsJPanel.add(this.undoButton);
+
         this.saveButton = ButtonFactory.getInstance().getSaveButton(Colors.COLOR_MAIN, new ButtonActionListener() {
             @Override
             public void action() {
@@ -159,6 +171,7 @@ public class GradeJFrame extends javax.swing.JFrame implements FrameView {
         this.modified = modified;
         this.turmasSelectOneMenu.setEnabled(!modified);
         this.saveButton.setEnabled(modified);
+        this.undoButton.setEnabled(modified);
     }
 
     /**
@@ -188,13 +201,19 @@ public class GradeJFrame extends javax.swing.JFrame implements FrameView {
     private void showTurma() {
         // Resetar
         this.reset();
+        try {
+            // Resetar entidade
+            ServiceProvider.getInstance().getTurmaService().refresh(this.selectedTurma);
+        } catch (ServiceException ex) {
+            Logger.getLogger(GradeJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
         // Exibir painel de disciplinas
         this.disciplinasContainerJPanel.setVisible(true);
         // Verificar se existem disciplinas para essa turma
-        if (this.selectedTurma.getDisciplinaTurmas().size() > 0) {
+        if (!this.selectedTurma.getDisciplinasTurma().isEmpty()) {
             // Modificar o layout do container para comportar o total de disciplinas da turma
             this.disciplinasInnerContainerJPanel.setLayout(new java.awt.GridLayout(
-                    this.selectedTurma.getDisciplinaTurmas().size() > MIN_DISCIPLINAS_SIZE ? this.selectedTurma.getDisciplinaTurmas().size() : MIN_DISCIPLINAS_SIZE,
+                    this.selectedTurma.getDisciplinasTurma().size() > MIN_DISCIPLINAS_SIZE ? this.selectedTurma.getDisciplinasTurma().size() : MIN_DISCIPLINAS_SIZE,
                     1,
                     Dimens.DEFAULT_MIN_PADDING,
                     Dimens.DEFAULT_MIN_PADDING
@@ -202,10 +221,14 @@ public class GradeJFrame extends javax.swing.JFrame implements FrameView {
             // Listeners para Disciplinas
             GradeJFrame.DisciplinaMouseListener dml = new GradeJFrame.DisciplinaMouseListener();
             // Adicionar as disciplinas da turma ao layout
-            for (DisciplinaTurma dt : this.selectedTurma.getDisciplinaTurmas()) {
-                DisciplinaJLabel dl = new DisciplinaJLabel(dt);
-                dl.addMouseListener(dml);
-                this.disciplinasInnerContainerJPanel.add(dl);
+            for (DisciplinaTurma dt : this.selectedTurma.getDisciplinasTurma()) {
+                try {
+                    DisciplinaJLabel dl = new DisciplinaJLabel(dt, ServiceProvider.getInstance().getDisciplinaTurmaService().countInAulas(dt));
+                    dl.addMouseListener(dml);
+                    this.disciplinasInnerContainerJPanel.add(dl);
+                } catch (ServiceException ex) {
+                    Logger.getLogger(GradeJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         } else {
             // Modificar o layout do container para comportar o total de disciplinas da turma
@@ -220,15 +243,22 @@ public class GradeJFrame extends javax.swing.JFrame implements FrameView {
         setGradeJPanelLayout();
         // Listener para as aulas
         MouseListener aml = new GradeJFrame.AulaMouseListener();
+        GradeListener gl = (a) -> {
+            currentAulaJPanel = a;
+            incrementDisciplina();
+        };
         // Iterar pelos dias de aula e preencher o layout
         this.diasAula.forEach(da -> {
             try {
                 DiaAulaJPanel diaAulaJPanel = new DiaAulaJPanel(
                         totalAulas,
                         da,
+                        this.selectedTurma,
                         ServiceProvider.getInstance().getAulaService().findAll(this.selectedTurma, da),
                         horarios.stream().filter(h -> h.getDiaAula().equals(da)).collect(Collectors.toList()),
-                        aml);
+                        aml,
+                        false,
+                        gl);
                 this.gradeJPanel.add(diaAulaJPanel);
             } catch (ServiceException ex) {
                 Logger.getLogger(GradeJFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -274,7 +304,7 @@ public class GradeJFrame extends javax.swing.JFrame implements FrameView {
                     // Verificar se eh mesmo um componente de DisciplinaTurma
                     if (c instanceof DisciplinaJLabel) {
                         // Verificar se a DisciplinaTurma eh igual a obtida pelo painel
-                        if (((DisciplinaJLabel) c).getDisciplinaTurmaAulas().getDisciplinaTurma().equals(currentAulaJPanel.getAula().getDisciplinaTurma())) {
+                        if (((DisciplinaJLabel) c).getDisciplinaTurmaAulas().getDisciplinaTurma().getDisciplina().equals(currentAulaJPanel.getAula().getDisciplina())) {
                             // Incrementar a DisciplinaTurma novamente
                             ((DisciplinaJLabel) c).decrement();
                             // Encerrar o laco
@@ -308,6 +338,26 @@ public class GradeJFrame extends javax.swing.JFrame implements FrameView {
         this.mainJFrame.setEnabled(true);
     }
 
+    private void incrementDisciplina() {
+        // Obter a DisciplinaTurma do componente
+        Disciplina disciplina = currentAulaJPanel.getAula().getDisciplina();
+        // Iterar pelos labels de DisciplinasTurmas para encontrar o referente ao obtido
+        for (Component c : disciplinasInnerContainerJPanel.getComponents()) {
+            // Verificar se eh mesmo um componente de DisciplinaTurma
+            if (c instanceof DisciplinaJLabel) {
+                // Verificar se a DisciplinaTurma eh igual a obtida pelo painel
+                if (((DisciplinaJLabel) c).getDisciplinaTurmaAulas().getDisciplinaTurma().getDisciplina().equals(disciplina)) {
+                    // Incrementar a DisciplinaTurma novamente
+                    ((DisciplinaJLabel) c).increment();
+                    // Encerrar o laco
+                    break;
+                }
+            }
+        }
+        // Indicar que houve modificacao
+        setModified(true);
+    }
+
     /**
      * Listener para as disciplinas
      */
@@ -334,25 +384,9 @@ public class GradeJFrame extends javax.swing.JFrame implements FrameView {
             setCursor(prevCursor);
             // Verificar se existe painel de aula selecionado e se existe disciplina pressionada
             if (currentAulaJPanel != null && pressedDisciplinaJLabel != null) {
-                // Obter a DisciplinaTurma do componente
-                DisciplinaTurma disciplinaTurma = currentAulaJPanel.getAula().getDisciplinaTurma();
-                // Iterar pelos labels de DisciplinasTurmas para encontrar o referente ao obtido
-                for (Component c : disciplinasInnerContainerJPanel.getComponents()) {
-                    // Verificar se eh mesmo um componente de DisciplinaTurma
-                    if (c instanceof DisciplinaJLabel) {
-                        // Verificar se a DisciplinaTurma eh igual a obtida pelo painel
-                        if (((DisciplinaJLabel) c).getDisciplinaTurmaAulas().getDisciplinaTurma().equals(disciplinaTurma)) {
-                            // Incrementar a DisciplinaTurma novamente
-                            ((DisciplinaJLabel) c).increment();
-                            // Encerrar o laco
-                            break;
-                        }
-                    }
-                }
-                // Indicar que houve modificacao
-                setModified(true);
+                incrementDisciplina();
                 // Adicionar disciplina turma a aula
-                currentAulaJPanel.getAula().setDisciplinaTurma(pressedDisciplinaJLabel.getDisciplinaTurmaAulas().getDisciplinaTurma());
+                currentAulaJPanel.getAula().setDisciplina(pressedDisciplinaJLabel.getDisciplinaTurmaAulas().getDisciplinaTurma().getDisciplina());
                 // Atualizar o componente de disciplina
                 pressedDisciplinaJLabel.decrement();
                 // Resetar o painel da aula
@@ -395,7 +429,7 @@ public class GradeJFrame extends javax.swing.JFrame implements FrameView {
             // Obter o painel da aula clicado
             currentAulaJPanel = ((AulaJPanel) e.getSource());
             // Verificar se ja existe disciplinaTurma preenchida
-            if (currentAulaJPanel.getAula().getDisciplinaTurma() != null) {
+            if (currentAulaJPanel.getAula().getDisciplina() != null) {
                 showProfessoresCompetentesView(currentAulaJPanel);
             } else {
                 showDisciplinasTurmaView(currentAulaJPanel);
@@ -500,6 +534,7 @@ public class GradeJFrame extends javax.swing.JFrame implements FrameView {
         this.gradeJPanel.setLayout(new BorderLayout());
         this.gradeJPanel.add(new GradeWarningJPanel(), java.awt.BorderLayout.CENTER);
         this.saveButton.setEnabled(false);
+        this.undoButton.setEnabled(false);
     }
 
     /**

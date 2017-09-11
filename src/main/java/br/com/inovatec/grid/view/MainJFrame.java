@@ -8,6 +8,7 @@ package br.com.inovatec.grid.view;
 import br.com.inovatec.grid.dao.connection.ConnectionFactory;
 import br.com.inovatec.grid.provider.ServiceProvider;
 import br.com.inovatec.grid.dao.exceptions.SearchEntityException;
+import br.com.inovatec.grid.reports.util.ReportsController;
 import br.com.inovatec.grid.service.exception.ServiceException;
 import br.com.inovatec.grid.view.component.AppMenuBar;
 import br.com.inovatec.grid.view.contract.FrameView;
@@ -25,6 +26,8 @@ import br.com.inovatec.grid.view.values.Strings;
 import br.com.inovatec.grid.view.values.Styles;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -35,7 +38,7 @@ public class MainJFrame extends JFrame implements FrameView {
     // Instancias de Janelas
     private ViewGradeJFrame viewGradeJFrame;
     private GradeJFrame gradeJFrame;
-    
+
     private final DummyFrame dummyFrame;
     private boolean renderComponentsCondition = false;
 
@@ -205,6 +208,11 @@ public class MainJFrame extends JFrame implements FrameView {
         aulasJMenuItem.setFont(Styles.FONT_FAMILY);
         aulasJMenuItem.setText("Aulas");
         aulasJMenuItem.setPreferredSize(new java.awt.Dimension(240, 25));
+        aulasJMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aulasJMenuItemActionPerformed(evt);
+            }
+        });
         gerenciarJMenu.add(aulasJMenuItem);
         gerenciarJMenu.add(jSeparator3);
 
@@ -313,6 +321,11 @@ public class MainJFrame extends JFrame implements FrameView {
         gradeCompletaJMenuItem.setText("Grade Completa");
         gradeCompletaJMenuItem.setMinimumSize(new java.awt.Dimension(240, 25));
         gradeCompletaJMenuItem.setPreferredSize(new java.awt.Dimension(240, 25));
+        gradeCompletaJMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gradeCompletaJMenuItemActionPerformed(evt);
+            }
+        });
         relatoriosJMenu.add(gradeCompletaJMenuItem);
 
         gradePorProfessorJMenuItem.setFont(Styles.FONT_FAMILY);
@@ -430,22 +443,35 @@ public class MainJFrame extends JFrame implements FrameView {
         ViewController.showSobreView(this);
     }//GEN-LAST:event_sobreJMenuItemActionPerformed
 
+    private void aulasJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aulasJMenuItemActionPerformed
+        ViewController.showAulasView(this);
+    }//GEN-LAST:event_aulasJMenuItemActionPerformed
+
+    private void gradeCompletaJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradeCompletaJMenuItemActionPerformed
+        ReportsController.showGradeHorarios();
+    }//GEN-LAST:event_gradeCompletaJMenuItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        // Criar instancias
-        MainJFrame mainJFrame = new MainJFrame();
-        SplashJFrame splash = new SplashJFrame(mainJFrame.dummyFrame);
+        // Alterar o tema utilizado
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            // Criar instancias
+            MainJFrame mainJFrame = new MainJFrame();
+            SplashJFrame splash = new SplashJFrame(mainJFrame.dummyFrame);
 
-        java.awt.EventQueue.invokeLater(() -> {
-            // Realizar testes iniciais
-            mainJFrame.initialTests();
-            // Esconder a Janela
-            splash.setVisible(false);
-            // Exibir a Janela Principal da aplicação
-            mainJFrame.display();
-        });
+            java.awt.EventQueue.invokeLater(() -> {
+                // Realizar testes iniciais
+                mainJFrame.initialTests();
+                // Esconder a Janela
+                splash.setVisible(false);
+                // Exibir a Janela Principal da aplicação
+                mainJFrame.display();
+            });
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -558,9 +584,9 @@ public class MainJFrame extends JFrame implements FrameView {
                     .listBy(Session.getInstance().getEscola().getPeriodoCorrente())
                     .isEmpty()
                     || ServiceProvider.getInstance()
-                    .getHorarioService()
-                    .getOfPeriodoCorrente(Session.getInstance().getEscola())
-                    .isEmpty()) {
+                            .getHorarioService()
+                            .getOfPeriodoCorrente(Session.getInstance().getEscola())
+                            .isEmpty()) {
                 // Exibir mensagem de dados incompletos
                 MessageFactory.showOkMessage(this, Strings.MESSAGE_DADOS_ESCOLA_INCOMPLETOS, new EscolaValidationMessageResultAction());
             }

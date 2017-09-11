@@ -1,11 +1,13 @@
 package br.com.inovatec.grid.entity;
 
 import br.com.inovatec.grid.view.contract.Selectable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -25,7 +27,7 @@ public class Turma extends Gerenciavel implements Selectable {
     @Column(length = 6)
     private Integer periodoCorrente;
     private int ano;
-    @Column(length = 2)
+    @Column(length = 30)
     private String acronimo;
     @Column(length = 255)
     private String descricao;
@@ -34,10 +36,15 @@ public class Turma extends Gerenciavel implements Selectable {
     private Sala sala;
     
     @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL)
-    private List<DisciplinaTurma> disciplinaTurmas;
+    private List<DisciplinaTurma> disciplinasTurma;
+    
+    @OneToMany(mappedBy = "turma", fetch = FetchType.LAZY)
+    private List<Aula> aulas;
     
     public Turma() {
         super();
+        this.disciplinasTurma = new ArrayList<>();
+        this.aulas = new ArrayList<>();
     }
 
     public Integer getPeriodoCorrente() {
@@ -80,12 +87,20 @@ public class Turma extends Gerenciavel implements Selectable {
         this.sala = sala;
     }
 
-    public List<DisciplinaTurma> getDisciplinaTurmas() {
-        return disciplinaTurmas;
+    public List<DisciplinaTurma> getDisciplinasTurma() {
+        return disciplinasTurma;
     }
 
-    public void setDisciplinaTurmas(List<DisciplinaTurma> disciplinaTurmas) {
-        this.disciplinaTurmas = disciplinaTurmas;
+    public void setDisciplinasTurma(List<DisciplinaTurma> disciplinasTurma) {
+        this.disciplinasTurma = disciplinasTurma;
+    }
+
+    public List<Aula> getAulas() {
+        return aulas;
+    }
+
+    public void setAulas(List<Aula> aulas) {
+        this.aulas = aulas;
     }
 
     @Override
@@ -100,6 +115,22 @@ public class Turma extends Gerenciavel implements Selectable {
     @Override
     public String getLabel() {
         return this.getNome();
+    }
+    
+    /**
+     * Adicionar disciplinaTurma
+     * 
+     * @param disciplinaTurma 
+     */
+    public void addDisciplinaTurma(DisciplinaTurma disciplinaTurma) {
+        this.disciplinasTurma.add(disciplinaTurma);
+        if (disciplinaTurma.getTurma() != this) {
+            disciplinaTurma.setTurma(this);
+        }
+    }
+    
+    public void resetDisciplinasTurma() {
+        this.disciplinasTurma = new ArrayList<>();
     }
     
 }

@@ -99,6 +99,10 @@ public class Horario implements Entidade<Long, Horario>, Serializable {
 
     public void setGerenciavel(Gerenciavel gerenciavel) {
         this.gerenciavel = gerenciavel;
+        // Adicionar instancia a lista das disciplinas da turma
+        if (!gerenciavel.getHorarios().contains(this)) {
+            gerenciavel.getHorarios().add(this);
+        }
     }
 
     @Override

@@ -19,6 +19,7 @@ import br.com.inovatec.grid.view.layout.template.DefaultView;
 import br.com.inovatec.grid.view.values.Strings;
 import br.com.inovatec.grid.view.contract.DialogView;
 import br.com.inovatec.grid.view.contract.FrameView;
+import br.com.inovatec.grid.view.layout.AulasView;
 import br.com.inovatec.grid.view.layout.CompetenciasView;
 import br.com.inovatec.grid.view.layout.DiasAulaView;
 import br.com.inovatec.grid.view.layout.DisciplinaView;
@@ -36,6 +37,7 @@ import br.com.inovatec.grid.view.layout.TurmaDisciplinasView;
 import br.com.inovatec.grid.view.layout.TurmaView;
 import br.com.inovatec.grid.view.layout.TurmasView;
 import br.com.inovatec.grid.view.layout.TutorialView;
+import br.com.inovatec.grid.view.layout.template.FilterView;
 import br.com.inovatec.grid.view.session.Session;
 import br.com.inovatec.grid.view.util.DummyFrame;
 import java.util.List;
@@ -150,6 +152,15 @@ public class ViewController {
      */
     public static void showProfessorView(DialogView requesterView, boolean forEdition, Professor professor) {
         showView(new ProfessorView(requesterView, forEdition, professor));
+    }
+    
+    /**
+     * Exibir Tela de Aulas
+     *
+     * @param mainJframe
+     */
+    public static void showAulasView(FrameView mainJframe) {
+        showView(new AulasView(mainJframe));
     }
 
     public static void showHorarioEditView(HorariosView requesterView, Horario horario, List<Horario> horarios, int index) {

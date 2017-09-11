@@ -1,23 +1,19 @@
 package br.com.inovatec.grid.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 
 @Entity
 @DiscriminatorValue("DT")
 @NamedQueries(value = {
     @NamedQuery(name = "disciplinaTurma.findAll", query = "SELECT dt FROM DisciplinaTurma dt"),
     @NamedQuery(name = "disciplinaTurma.findByTurma", query = "SELECT dt FROM DisciplinaTurma dt WHERE dt.turma = :turma ORDER BY dt.disciplina.nome"),
-    @NamedQuery(name = "disciplinaTurma.countInAulas", query = "SELECT COUNT(a) FROM DisciplinaTurma dt, Aula a WHERE a.disciplinaTurma = dt AND dt = :disciplinaTurma")
+    @NamedQuery(name = "disciplinaTurma.countInAulas", query = "SELECT COUNT(a) FROM DisciplinaTurma dt, Aula a WHERE a.disciplina = dt.disciplina AND a.turma = dt.turma AND dt = :disciplinaTurma")
 })
 public class DisciplinaTurma extends Gerenciavel implements Serializable {
 
@@ -31,13 +27,9 @@ public class DisciplinaTurma extends Gerenciavel implements Serializable {
 
     private Integer cargaHorariaTotal;
     private Integer aulasSemanaTotal;
-    
-    @OneToMany(mappedBy = "disciplinaTurma", fetch = FetchType.LAZY)
-    private List<Aula> aulas;
 
     public DisciplinaTurma() {
         super();
-        this.aulas = new ArrayList<>();
     }
 
     public Disciplina getDisciplina() {
@@ -54,6 +46,10 @@ public class DisciplinaTurma extends Gerenciavel implements Serializable {
 
     public void setTurma(Turma turma) {
         this.turma = turma;
+        // Adicionar instancia a lista das disciplinas da turma
+        if (!turma.getDisciplinasTurma().contains(this)) {
+            turma.getDisciplinasTurma().add(this);
+        }
     }
 
     public Integer getCargaHorariaTotal() {
@@ -70,14 +66,6 @@ public class DisciplinaTurma extends Gerenciavel implements Serializable {
 
     public void setAulasSemanaTotal(Integer aulasSemanaTotal) {
         this.aulasSemanaTotal = aulasSemanaTotal;
-    }
-
-    public List<Aula> getAulas() {
-        return aulas;
-    }
-
-    public void setAulas(List<Aula> aulas) {
-        this.aulas = aulas;
     }
 
     @Override

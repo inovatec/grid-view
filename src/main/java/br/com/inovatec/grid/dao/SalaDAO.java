@@ -27,6 +27,11 @@ public class SalaDAO extends GenericDAO<Sala> {
         return this.list("sala.findAll", null);
     }
     
+    @Override
+    public String getGenericQuery() {
+        return "select s from Sala s where $1";
+    }
+    
     /**
      * Obter todas as salas pelo status
      * 

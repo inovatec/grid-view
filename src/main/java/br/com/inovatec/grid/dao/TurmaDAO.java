@@ -26,6 +26,11 @@ public class TurmaDAO extends GenericDAO<Turma> {
         return this.list("turma.findAll", null);
     }
     
+    @Override
+    public String getGenericQuery() {
+        return "select t from Turma t where $1";
+    }
+    
     public List<Turma> findAllByPeriodo(Integer periodoCorrente) throws ListEntityException {
         Map<String, Object> params = new HashMap<>();
         params.put("periodoCorrente", periodoCorrente);

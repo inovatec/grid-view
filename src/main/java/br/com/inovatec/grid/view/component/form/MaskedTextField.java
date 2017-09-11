@@ -64,6 +64,13 @@ public class MaskedTextField extends javax.swing.JPanel implements Field {
             }
         });
     }
+    
+    /**
+     * Resetar campo
+     */
+    public void reset() {
+        this.jFormattedTextField.setText(null);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

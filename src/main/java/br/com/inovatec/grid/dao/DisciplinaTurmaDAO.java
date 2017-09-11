@@ -27,6 +27,11 @@ public class DisciplinaTurmaDAO extends GenericDAO<DisciplinaTurma> {
         return this.list("disciplinaTurma.findAll", null);
     }
     
+    @Override
+    public String getGenericQuery() {
+        return "select dt from DisciplinaTurma dt where $1";
+    }
+    
     public List<DisciplinaTurma> findByTurma(Turma turma) throws ListEntityException {
         // Limpar o cache
         this.getEm().clear();
@@ -43,11 +48,11 @@ public class DisciplinaTurmaDAO extends GenericDAO<DisciplinaTurma> {
      * @return
      * @throws SearchEntityException 
      */
-    public Long countInAulas(DisciplinaTurma disciplinaTurma) throws SearchEntityException {
+    public Integer countInAulas(DisciplinaTurma disciplinaTurma) throws SearchEntityException {
         try {
             Query query = getEm().createNamedQuery("disciplinaTurma.countInAulas", Long.class);
             query.setParameter("disciplinaTurma", disciplinaTurma);
-            return (Long) query.getSingleResult();
+            return ((Long) query.getSingleResult()).intValue();
         } catch (Exception ex) {
             throw new SearchEntityException(ex);
         }

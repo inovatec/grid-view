@@ -75,7 +75,7 @@ public class EscolaContent extends DefaultFormContent<Escola> {
         // Dimensoes dos TextFields da segunda linha
         Dimension fieldsLineOneDimension = ComponentUtils.getTextFieldDimension(this.getWidth(), 1, Dimens.WEIGHT_100);
         // Adicionar TextFields da segunda linha
-        this.nomeTextField = TextFieldFactory.getInstance().getTextField(fieldsLineOneDimension);
+        this.nomeTextField = TextFieldFactory.getInstance().getTextField(fieldsLineOneDimension, 100);
         this.getMain().add(this.nomeTextField);
 
         // Dimensoes dos Labels da segunda linha

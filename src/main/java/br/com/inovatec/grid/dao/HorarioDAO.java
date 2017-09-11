@@ -28,6 +28,11 @@ public class HorarioDAO extends GenericDAO<Horario> {
         return this.list("horario.findAll", null);
     }
     
+    @Override
+    public String getGenericQuery() {
+        return "select h from Horario h where $1";
+    }
+    
     public List<Horario> findBy(Gerenciavel gerenciavel, Integer periodo) throws ListEntityException {
         // Limpar o cache
         this.getEm().clear();

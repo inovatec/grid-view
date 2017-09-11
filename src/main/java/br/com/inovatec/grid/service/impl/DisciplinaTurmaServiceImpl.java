@@ -7,6 +7,7 @@ package br.com.inovatec.grid.service.impl;
 
 import br.com.inovatec.grid.dao.DisciplinaTurmaDAO;
 import br.com.inovatec.grid.dao.exceptions.ListEntityException;
+import br.com.inovatec.grid.dao.exceptions.SearchEntityException;
 import br.com.inovatec.grid.entity.DisciplinaTurma;
 import br.com.inovatec.grid.entity.Turma;
 import br.com.inovatec.grid.service.DisciplinaTurmaService;
@@ -35,6 +36,15 @@ public class DisciplinaTurmaServiceImpl extends AbstractService<DisciplinaTurma,
         try {
             return this.disciplinaTurmaDAO.findByTurma(turma);
         } catch (ListEntityException ex) {
+            throw new ServiceException(ex);
+        }
+    }
+    
+    @Override
+    public Integer countInAulas(DisciplinaTurma disciplinaTurma) throws ServiceException {
+        try {
+            return this.disciplinaTurmaDAO.countInAulas(disciplinaTurma);
+        } catch (SearchEntityException ex) {
             throw new ServiceException(ex);
         }
     }

@@ -6,14 +6,17 @@
 package br.com.inovatec.grid.view.component.main;
 
 import br.com.inovatec.grid.entity.Aula;
-import br.com.inovatec.grid.entity.Horario;
 import br.com.inovatec.grid.util.DateTimeUtils;
+import br.com.inovatec.grid.view.component.form.util.GradeListener;
 import br.com.inovatec.grid.view.values.Colors;
 import br.com.inovatec.grid.view.values.Dimens;
+import br.com.inovatec.grid.view.values.Icons;
 import br.com.inovatec.grid.view.values.Strings;
 import br.com.inovatec.grid.view.values.Styles;
-import java.awt.GridBagConstraints;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
@@ -24,22 +27,21 @@ import javax.swing.border.LineBorder;
 public class AulaJPanel extends javax.swing.JPanel {
 
     private Aula aula;
+    private final boolean viewOnly;
+    private final GradeListener gradeListener;
     private final JLabel horarioJLabel, statusJLabel, disciplinaJLabel, professorJLabel;
 
     /**
      * Creates new form AulaJPanel
      *
      * @param aula
-     * @param horario
+     * @param viewOnly
+     * @param gradeListener
      */
-    public AulaJPanel(Aula aula, Horario horario) {
-        // Inicializar variaveis
-        if (aula == null) {
-            this.aula = new Aula();
-            this.aula.setHorario(horario);
-        } else {
-            this.aula = aula;
-        }
+    public AulaJPanel(Aula aula, boolean viewOnly, GradeListener gradeListener) {
+        this.aula = aula;
+        this.viewOnly = viewOnly;
+        this.gradeListener = gradeListener;
         // Incializar componentes
         initComponents();
         // Inicializar variaveis
@@ -63,29 +65,56 @@ public class AulaJPanel extends javax.swing.JPanel {
 
     private void init() {
 
-        setBackground(Colors.COLOR_AULA_CONTAINER);
-        setBorder(new EmptyBorder(Dimens.AULA_BORDER_SIZE, Dimens.AULA_BORDER_SIZE, Dimens.AULA_BORDER_SIZE, Dimens.AULA_BORDER_SIZE));
+        this.reset();
 
-        // Borda vazia dos componentes
-        javax.swing.border.Border border = javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5);
+        if (!this.viewOnly) {
+            this.deleteJLabel.setIcon(Icons.IC_DELETE);
+            this.deleteJLabel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    deleteJLabel.setVisible(!viewOnly && aula.getDisciplina() != null);
+                }
+
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    if (gradeListener != null) {
+                        gradeListener.action(AulaJPanel.this);
+                    }
+                    aula.setDisciplina(null);
+                    aula.setProfessor(null);
+                    draw();
+                }
+            });
+            this.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    deleteJLabel.setVisible(false);
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    deleteJLabel.setVisible(!viewOnly && aula.getDisciplina() != null);
+                }
+            });
+        }
 
         this.horarioJLabel.setFont(Styles.FONT_FAMILY_BOLD);
+        this.horarioJLabel.setHorizontalAlignment(SwingConstants.CENTER);
         this.horarioJLabel.setForeground(Colors.COLOR_FONT);
-        this.horarioJLabel.setBorder(border);
 
         this.statusJLabel.setFont(Styles.FONT_FAMILY);
         this.statusJLabel.setForeground(Colors.COLOR_FONT);
         this.statusJLabel.setText(Strings.GRADE_HORARIOS_STATUS_VAGO);
-        this.statusJLabel.setBorder(border);
+        this.statusJLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         this.disciplinaJLabel.setFont(Styles.FONT_FAMILY);
         this.disciplinaJLabel.setForeground(Colors.COLOR_FONT);
         this.disciplinaJLabel.setText(Strings.GRADE_HORARIOS_STATUS_VAGO);
-        this.disciplinaJLabel.setBorder(border);
+        this.disciplinaJLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         this.professorJLabel.setFont(Styles.FONT_FAMILY);
+        this.professorJLabel.setHorizontalAlignment(SwingConstants.CENTER);
         this.professorJLabel.setForeground(Colors.COLOR_FONT);
-        this.professorJLabel.setBorder(border);
     }
 
     /**
@@ -99,7 +128,7 @@ public class AulaJPanel extends javax.swing.JPanel {
                     + " - "
                     + DateTimeUtils.getMinimalFormattedTime(this.aula.getHorario().getFim())
             );
-            this.add(this.horarioJLabel, new java.awt.GridBagConstraints());
+            this.add(this.horarioJLabel);
         }
     }
 
@@ -111,19 +140,15 @@ public class AulaJPanel extends javax.swing.JPanel {
         // Remover labels nao usados
         this.remove(this.disciplinaJLabel);
         this.remove(this.professorJLabel);
-
-        GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        this.add(this.statusJLabel, gridBagConstraints);
+        this.add(this.statusJLabel);
     }
 
     /**
      * Adicionar informacao da Disciplina ao Horario
      *
      */
-    public void showDisciplinaTurma() {
-        if (this.aula.getDisciplinaTurma() != null) {
+    public void showDisciplina() {
+        if (this.aula.getDisciplina() != null) {
             // Remover labels nao usados
             this.remove(this.statusJLabel);
             // Modificar cor do label
@@ -133,11 +158,14 @@ public class AulaJPanel extends javax.swing.JPanel {
             this.professorJLabel.setForeground(Colors.COLOR_WHITE);
             this.disciplinaJLabel.setForeground(Colors.COLOR_WHITE);
             // Mostrar Disciplina
-            this.disciplinaJLabel.setText(this.aula.getDisciplinaTurma().getDisciplina().getNome());
-            GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
-            gridBagConstraints.gridx = 0;
-            gridBagConstraints.gridy = 1;
-            this.add(this.disciplinaJLabel, gridBagConstraints);
+            this.disciplinaJLabel.setText(this.aula.getDisciplina().getNome());
+            this.add(this.disciplinaJLabel);
+        } else {
+            setBackground(Colors.COLOR_AULA_CONTAINER);
+            this.horarioJLabel.setForeground(Colors.COLOR_FONT);
+            this.statusJLabel.setForeground(Colors.COLOR_FONT);
+            this.disciplinaJLabel.setForeground(Colors.COLOR_FONT);
+            this.professorJLabel.setForeground(Colors.COLOR_FONT);
         }
     }
 
@@ -154,10 +182,7 @@ public class AulaJPanel extends javax.swing.JPanel {
         } else {
             this.professorJLabel.setText(Strings.GRADE_HORARIOS_AULA_PROFESSOR_NULL);
         }
-        GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        this.add(this.professorJLabel, gridBagConstraints);
+        this.add(this.professorJLabel);
     }
 
     /**
@@ -167,10 +192,14 @@ public class AulaJPanel extends javax.swing.JPanel {
     public void draw() {
         reset();
 
+        this.remove(this.elementFooterJPanel);
+        
         showHorario();
         showStatusVago();
-        showDisciplinaTurma();
+        showDisciplina();
         showProfessor();
+        
+        this.add(this.elementFooterJPanel);
     }
 
     /**
@@ -179,6 +208,7 @@ public class AulaJPanel extends javax.swing.JPanel {
      */
     public void change() {
         setBorder(new LineBorder(Colors.COLOR_GRADE_DISCIPLINA_LEFT, Dimens.AULA_BORDER_SIZE));
+        this.deleteJLabel.setVisible(false);
     }
 
     /**
@@ -186,6 +216,7 @@ public class AulaJPanel extends javax.swing.JPanel {
      */
     public void reset() {
         setBorder(new EmptyBorder(Dimens.AULA_BORDER_SIZE, Dimens.AULA_BORDER_SIZE, Dimens.AULA_BORDER_SIZE, Dimens.AULA_BORDER_SIZE));
+        this.deleteJLabel.setVisible(false);
     }
 
     /**
@@ -196,11 +227,36 @@ public class AulaJPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        setLayout(new java.awt.GridBagLayout());
+        deleteJPanel = new javax.swing.JPanel();
+        deleteJLabel = new javax.swing.JLabel();
+        elementFooterJPanel = new javax.swing.JPanel();
+
+        setLayout(new java.awt.GridLayout(5, 1));
+
+        deleteJPanel.setBackground(null);
+        deleteJPanel.setMinimumSize(new java.awt.Dimension(100, 20));
+        deleteJPanel.setPreferredSize(new java.awt.Dimension(100, 15));
+        deleteJPanel.setLayout(new java.awt.BorderLayout());
+
+        deleteJLabel.setMinimumSize(new java.awt.Dimension(15, 15));
+        deleteJLabel.setPreferredSize(new java.awt.Dimension(15, 15));
+        deleteJPanel.add(deleteJLabel, java.awt.BorderLayout.EAST);
+
+        add(deleteJPanel);
+
+        elementFooterJPanel.setBackground(null);
+        elementFooterJPanel.setMinimumSize(new java.awt.Dimension(100, 20));
+        elementFooterJPanel.setPreferredSize(new java.awt.Dimension(100, 15));
+        elementFooterJPanel.setLayout(null);
+        add(elementFooterJPanel);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel deleteJLabel;
+    private javax.swing.JPanel deleteJPanel;
+    private javax.swing.JPanel elementFooterJPanel;
     // End of variables declaration//GEN-END:variables
 }

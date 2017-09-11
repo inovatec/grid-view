@@ -20,9 +20,10 @@ public class DisciplinaJLabel extends javax.swing.JLabel {
 
     private final DisciplinaTurmaAulas disciplinaTurmaAulas;
 
-    public DisciplinaJLabel(DisciplinaTurma disciplinaTurma) {
+    public DisciplinaJLabel(DisciplinaTurma disciplinaTurma, int totalAlocado) {
         super();
-        this.disciplinaTurmaAulas = new DisciplinaTurmaAulas(disciplinaTurma, disciplinaTurma.getAulasSemanaTotal() - disciplinaTurma.getAulas().size());
+        //this.disciplinaTurmaAulas = new DisciplinaTurmaAulas(disciplinaTurma, disciplinaTurma.getAulasSemanaTotal() - disciplinaTurma.getAulas().size());
+        this.disciplinaTurmaAulas = new DisciplinaTurmaAulas(disciplinaTurma, disciplinaTurma.getAulasSemanaTotal() - totalAlocado);
         config();
     }
 

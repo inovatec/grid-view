@@ -3,16 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.inovatec.grid.service;
-
-import br.com.inovatec.grid.entity.Grade;
+package br.com.inovatec.grid.view.component.form.util;
 
 /**
  *
  * @author zrobe
  */
-public interface GradeService extends GenericService<Grade>{
+public abstract class FilterListener {
     
-    
+    public abstract void filter();
+    public abstract void reset();
     
 }

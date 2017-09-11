@@ -24,8 +24,8 @@ public class ProfessoresCompetentesView extends DefaultView {
 
     public ProfessoresCompetentesView(FrameView requester, Aula aula) {
         super(requester,
-                Strings.getReplacedString(Strings.PROFESSORES_COMPETENTES_DIALOG_TITLE, aula.getDisciplinaTurma().getDisciplina().getNome()),
-                Strings.getReplacedString(Strings.PROFESSORES_COMPETENTES_DIALOG_TITLE, aula.getDisciplinaTurma().getDisciplina().getNome()),
+                Strings.getReplacedString(Strings.PROFESSORES_COMPETENTES_DIALOG_TITLE, aula.getDisciplina().getNome()),
+                Strings.getReplacedString(Strings.PROFESSORES_COMPETENTES_DIALOG_TITLE, aula.getDisciplina().getNome()),
                 Strings.getReplacedString(
                         Strings.PROFESSORES_COMPETENTES_CONTENT_HEADER_TIP,
                         DateTimeUtils.getMinimalFormattedTime(aula.getHorario().getInicio()),

@@ -12,10 +12,7 @@ import br.com.inovatec.grid.entity.DiaAula;
 import br.com.inovatec.grid.provider.ServiceProvider;
 import br.com.inovatec.grid.service.DiaAulaService;
 import br.com.inovatec.grid.service.exception.ServiceException;
-import br.com.inovatec.grid.view.session.Session;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

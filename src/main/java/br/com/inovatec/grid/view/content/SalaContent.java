@@ -62,7 +62,7 @@ public class SalaContent extends DefaultFormContent<Sala> {
         // Adicionar Labels da primeira linha
         this.getMain().add(LabelFactory.getInstance().getLabel(Strings.SALA_DIALOG_NOME_FIELD, this.getWidth(), 1, Dimens.WEIGHT_100));
         // Adicionar TextFields da primeira linha
-        this.nomeTextField = TextFieldFactory.getInstance().getTextField(this.getWidth(), 1, Dimens.WEIGHT_100);
+        this.nomeTextField = TextFieldFactory.getInstance().getTextField(this.getWidth(), 1, Dimens.WEIGHT_100, 100);
         this.getMain().add(this.nomeTextField);
         // Adicionar Labels da segunda linha
         this.getMain().add(LabelFactory.getInstance().getLabel(Strings.SALA_DIALOG_TIPO_FIELD, this.getWidth(), 2, Dimens.WEIGHT_50));
@@ -75,7 +75,7 @@ public class SalaContent extends DefaultFormContent<Sala> {
         // Adicionar Labels da terceira linha
         this.getMain().add(LabelFactory.getInstance().getLabel(Strings.SALA_DIALOG_DESCRICAO_FIELD, this.getWidth(), 1, Dimens.WEIGHT_100));
         // Adicionar TextFields da terceira linha
-        this.descricaoTextArea = TextAreaFactory.getInstance().getTextArea(this.getWidth(), 1, Dimens.WEIGHT_100);
+        this.descricaoTextArea = TextAreaFactory.getInstance().getTextArea(this.getWidth(), 1, Dimens.WEIGHT_100, 255);
         this.getMain().add(this.descricaoTextArea);
         // Add campos do formulario [END]
         // Preencher dados da sala caso exista

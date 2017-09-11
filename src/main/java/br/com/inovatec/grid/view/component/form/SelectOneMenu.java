@@ -112,6 +112,13 @@ public class SelectOneMenu<T> extends javax.swing.JPanel implements Field {
     public void clearFirstElement() {
         this.jComboBox.removeItemAt(0);
     }
+    
+    /**
+     * Resetar campo
+     */
+    public void reset() {
+        this.jComboBox.setSelectedItem(null);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -7,18 +7,16 @@ package br.com.inovatec.grid.view.content;
 
 import br.com.inovatec.grid.provider.ServiceProvider;
 import br.com.inovatec.grid.entity.Professor;
-import br.com.inovatec.grid.service.exception.ServiceException;
 import br.com.inovatec.grid.view.component.DataTableEntity;
 import br.com.inovatec.grid.view.component.datamodel.ProfessorDataModel;
-import br.com.inovatec.grid.view.component.listener.DataTableEntityActionListener;
 import br.com.inovatec.grid.view.component.util.ComponentUtils;
 import br.com.inovatec.grid.view.content.template.DefaultListContent;
 import br.com.inovatec.grid.view.controller.ViewController;
+import br.com.inovatec.grid.view.layout.filters.ProfessoresFilterView;
 import br.com.inovatec.grid.view.layout.template.DefaultView;
 import br.com.inovatec.grid.view.values.Dimens;
 import br.com.inovatec.grid.view.values.Icons;
 import java.awt.Dimension;
-import java.util.List;
 
 /**
  *
@@ -29,7 +27,12 @@ public class ProfessoresContent extends DefaultListContent<Professor> {
     private DataTableEntity<Professor, ProfessorDataModel> dataTable;
 
     public ProfessoresContent(DefaultView container) {
-        super(container, Icons.IC_PROFESSOR);
+        super(
+                container, 
+                Icons.IC_PROFESSOR,
+                ServiceProvider.getInstance().getProfessorService(),
+                new ProfessoresFilterView(container),
+                true);
     }
 
     @Override
@@ -41,21 +44,12 @@ public class ProfessoresContent extends DefaultListContent<Professor> {
             this.dataTable = new DataTableEntity<>(
                     new ProfessorDataModel(this.getData()),
                     tableDimension,
-                    new ProfessorDataTableEntityActionListener(),
-                    true
+                    getDataTableEntityActionListener(),
+                    true,
+                    false
             );
         }
         return this.dataTable;
-    }
-
-    @Override
-    public List<Professor> getData() {
-        try {
-            return ServiceProvider.getInstance().getProfessorService().findAll();
-        } catch (ServiceException ex) {
-            this.showInternalErrorMessage(ex);
-        }
-        return null;
     }
 
     @Override
@@ -66,30 +60,6 @@ public class ProfessoresContent extends DefaultListContent<Professor> {
     @Override
     public void viewAction() {
         ViewController.showProfessorView(this.getContainer(), false, this.getDataTable().getSelected());
-    }
-
-    @Override
-    public void filterAction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private class ProfessorDataTableEntityActionListener implements DataTableEntityActionListener<Professor> {
-
-        @Override
-        public void mainAction(Professor t, int index) {
-            viewAction();
-        }
-        
-        @Override
-        public void clickRowAction() {
-            getViewButton().setEnabled(true);
-        }
-
-        @Override
-        public boolean deleteAction(Professor t) {
-            return true;
-        }
-
     }
 
 }

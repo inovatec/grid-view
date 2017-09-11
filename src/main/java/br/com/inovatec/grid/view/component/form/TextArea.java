@@ -5,6 +5,7 @@
  */
 package br.com.inovatec.grid.view.component.form;
 
+import br.com.inovatec.grid.view.component.form.util.JTextFieldLimit;
 import br.com.inovatec.grid.view.contract.Field;
 import br.com.inovatec.grid.view.values.Colors;
 import br.com.inovatec.grid.view.values.Styles;
@@ -29,6 +30,15 @@ public class TextArea extends javax.swing.JPanel implements Field {
     public TextArea(String text) {
         initComponents();
         this.jTextArea.setText(text);
+    }
+    
+    /**
+     * Creates new form TextField
+     * @param limit
+     */
+    public TextArea(int limit) {
+        initComponents();
+        this.jTextArea.setDocument(new JTextFieldLimit(limit));
     }
 
     /**

@@ -35,6 +35,12 @@ public class TextFieldFactory {
         return textField;
     }
     
+    public TextField getTextField(Dimension dimension, int limit) {
+        TextField textField = new TextField(limit);
+        textField.setPreferredSize(dimension);
+        return textField;
+    }
+    
     /**
      * Obter TextField com as configurações de dimensões
      * 
@@ -45,6 +51,19 @@ public class TextFieldFactory {
      */
     public TextField getTextField(int containerWidth, int lineChilds, Double weight) {
         return getTextField(ComponentUtils.getTextFieldDimension(containerWidth, lineChilds, weight));
+    }
+    
+    /**
+     * Obter TextField com as configurações de dimensões
+     * 
+     * @param containerWidth
+     * @param lineChilds
+     * @param weight
+     * @param limit
+     * @return 
+     */
+    public TextField getTextField(int containerWidth, int lineChilds, Double weight, int limit) {
+        return getTextField(ComponentUtils.getTextFieldDimension(containerWidth, lineChilds, weight), limit);
     }
     
     public PasswordTextField getPasswordTextField(Dimension dimension) {

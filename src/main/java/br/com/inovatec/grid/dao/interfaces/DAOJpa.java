@@ -7,6 +7,7 @@ package br.com.inovatec.grid.dao.interfaces;
 
 import br.com.inovatec.grid.dao.exceptions.*;
 import br.com.inovatec.grid.entity.Entidade;
+import br.com.inovatec.grid.util.object.CriteriaParam;
 import java.util.List;
 import java.util.Map;
 
@@ -59,6 +60,14 @@ public interface DAOJpa<T extends Entidade> {
     public void remove(T obj) throws RemoveEntityException;
     
     /**
+     * Atualizar entidade
+     * 
+     * @param obj
+     * @throws RefreshEntityException 
+     */
+    public void refresh(T obj) throws RefreshEntityException;
+    
+    /**
      * Listar as entidades de acordo com a query e os parametros passados
      * 
      * @param query
@@ -67,5 +76,14 @@ public interface DAOJpa<T extends Entidade> {
      * @throws ListEntityException 
      */
     public List<T> list(String query, Map<String, Object> params) throws ListEntityException;
+    
+    /**
+     * Listar as entidades a partir de uma query a ser construida
+     * 
+     * @param criteriaParams
+     * @return
+     * @throws ListEntityException 
+     */
+    public List<T> findAll(List<CriteriaParam> criteriaParams) throws ListEntityException;
     
 }

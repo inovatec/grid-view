@@ -17,5 +17,6 @@ import java.util.List;
 public interface DisciplinaTurmaService extends GenericService<DisciplinaTurma>{
     
     public List<DisciplinaTurma> findByTurma(Turma turma) throws ServiceException;
+    public Integer countInAulas(DisciplinaTurma disciplinaTurma) throws ServiceException;
     
 }

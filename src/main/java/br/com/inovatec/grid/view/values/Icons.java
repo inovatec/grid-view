@@ -39,6 +39,7 @@ public class Icons {
     public static final ImageIcon IC_DISCIPLINA_AULA = getImageIcon("ic_disciplina_aula");
     public static final ImageIcon IC_ADD = getImageIcon("ic_add");
     public static final ImageIcon IC_CHECK = getImageIcon("ic_check");
+    public static final ImageIcon IC_DELETE = getImageIcon("ic_delete");
     public static final ImageIcon IC_GRID = getImageIcon("ic_grid");
     public static final ImageIcon IC_GRID_VIEW = getImageIcon("ic_grid_view");
     public static final ImageIcon IC_INFO = getImageIcon("ic_info");

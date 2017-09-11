@@ -66,7 +66,7 @@ public class TurmaContent extends DefaultFormContent<Turma> {
             // Adicionar TextFields da primeira linha
             this.anoNumberTextField = TextFieldFactory.getInstance().getNumberTextField(this.getWidth(), 2, Dimens.WEIGHT_50);
             this.getMain().add(this.anoNumberTextField);
-            this.acronimoTextField = TextFieldFactory.getInstance().getTextField(this.getWidth(), 2, Dimens.WEIGHT_50);
+            this.acronimoTextField = TextFieldFactory.getInstance().getTextField(this.getWidth(), 2, Dimens.WEIGHT_50, 30);
             this.getMain().add(this.acronimoTextField);
             // Adicionar Labels da segunda linha
             this.getMain().add(LabelFactory.getInstance().getLabel(Strings.TURMA_DIALOG_SALA_FIELD, this.getWidth(), 1, Dimens.WEIGHT_100));
@@ -81,7 +81,7 @@ public class TurmaContent extends DefaultFormContent<Turma> {
             // Adicionar Labels da quarta linha
             this.getMain().add(LabelFactory.getInstance().getLabel(Strings.TURMA_DIALOG_DESCRICAO_FIELD, this.getWidth(), 1, Dimens.WEIGHT_100));
             // Adicionar TextFields da quarta linha
-            this.descricaoTextArea = TextAreaFactory.getInstance().getTextArea(this.getWidth(), 1, Dimens.WEIGHT_100);
+            this.descricaoTextArea = TextAreaFactory.getInstance().getTextArea(this.getWidth(), 1, Dimens.WEIGHT_100, 255);
             this.getMain().add(this.descricaoTextArea);
             // Add campos do formulario [END]
             // Preencher dados da turma caso exista

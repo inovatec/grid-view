@@ -56,7 +56,7 @@ public class DisciplinasTurmaContent extends DefaultFormContent<Professor> {
                 dtjp.setSize(d);
                 dtjp.setPreferredSize(d);
                 // Verificar se o professor da aula eh igual ao professor atual do loop
-                if (dta.getDisciplinaTurma().equals(getContainer().getAula().getDisciplinaTurma())) {
+                if (dta.getDisciplinaTurma().getDisciplina().equals(getContainer().getAula().getDisciplina())) {
                     // Checar
                     dtjp.check(true);
                     // Atribuir o painel atual ao painel selecionado
@@ -143,11 +143,11 @@ public class DisciplinasTurmaContent extends DefaultFormContent<Professor> {
      * Acao do botao salvar
      */
     private void save() {
-        // Atribuir o professor selecionado ao objeto do container
+        // Atribuir a disciplina selecionada ao objeto do container
         if (this.selectedDisciplinaTurmaJPanel != null) {
-            getContainer().getAula().setDisciplinaTurma(this.selectedDisciplinaTurmaJPanel.getDisciplinaTurmaAulas().getDisciplinaTurma());
+            getContainer().getAula().setDisciplina(this.selectedDisciplinaTurmaJPanel.getDisciplinaTurmaAulas().getDisciplinaTurma().getDisciplina());
         } else {
-            getContainer().getAula().setDisciplinaTurma(null);
+            getContainer().getAula().setDisciplina(null);
         }
         getContainer().close();
     }
